@@ -25,7 +25,7 @@
 
 RA-CNN的子网络（sub-network）存在分类结构，得到分类的概率评分。
 
-还有一个子网络叫做 ** Attention Proposal Sub-Network（APN）** ，也就是引入了 attention 机制，让整个网络结构不仅关注整体信息，还关注局部信息。
+还有一个子网络叫做 **Attention Proposal Sub-Network（APN）** ，也就是引入了 attention 机制，让整个网络结构不仅关注整体信息，还关注局部信息。
 
 整个网络结构如下：
 
@@ -43,7 +43,7 @@ RA-CNN的子网络（sub-network）存在分类结构，得到分类的概率评
 
 在激活函数里面，逻辑回归函数（Logistic Regression）是很常见的。其实通过逻辑回归函数，我们可以构造出近似的阶梯函数或者面具函数。
 
-** 分类（Classification）和排序（Ranking）部分**
+**分类（Classification）和排序（Ranking）部分**
 
 RA-CNN 也有着自己的方法论。在损失函数（Loss Function）里面有两个重要的部分，第一个部分就是三幅图片的 LOSS 函数相加，也就是所谓的 classification loss.
 
@@ -69,3 +69,7 @@ RA-CNN 也有着自己的方法论。在损失函数（Loss Function）里面有
 ![](__pics/attention_5.jpg)
 
 https://zhuanlan.zhihu.com/p/56501461
+
+### 3. 图像分类比赛的一个trick
+
+一堆patch抽特征跑个ensemble模型，例如一张图crop五个部位，对预测值求平均。
