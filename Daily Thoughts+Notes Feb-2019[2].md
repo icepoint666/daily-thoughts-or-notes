@@ -1,4 +1,4 @@
-# Daily Thought (2019.2.11 - 2019.2.12)
+# Daily Thought (2019.2.11 - 2019.2.15)
 **Do More Thinking!** ♈ 
 
 **Ask More Questions!** ♑
@@ -99,4 +99,24 @@ batch norm是对一个batch里所有的图片的所有像素求均值和标准�
 而instance norm的信息都是来自于自身的图片，某个角度来说，可以看作是全局信息的一次整合和调整。对于训练也说也是更稳定的一种方法。
 
 其实我们完全可以把instance norm当做L2 norm这种方法的一个变种。前者适合卷积层，后者适合全连接层。
+
+### 17. Spectral Normalization谱归一化
+
+本身设计的提出是为了训练WGAN，WGAN的训练改进策略有weight-clipping，gradinet panelty 以及这里的谱归一化。
+
+因为WGAN的思路就是将Wasserstein距离转换为使神经网络中的判别器函数具有 Lipschitz continuity 
+
+因为矩阵乘法是线性映射对线性映射来说，如果它在零点处是 K-Lipschitz 的，那么它在整个定义域上都是 K-Lipschitz 的。
+
+因此数学证明：矩阵 A 除以它的 spectral norm（ A^TA 最大特征值的开根号）可以使其具有 1-Lipschitz continuity。
+
+多层神经网络，正是多个复合函数嵌套的操作。最常见的嵌套是：一层卷积，一层激活函数，再一层卷积，再一层激活函数，这样层层包裹起来。而激活函数通常选取的 ReLU，Leaky ReLU 都是 1-Lipschitz 的，带入到复合函数lipschitz公式中相乘不影响总体的 Lipschitz constant，我们只需要保证卷积的部分是 1-Lipschitz continuous 的，就可以保证整个神经网络都是 1-Lipschitz continuous 的。
+
+我们已经知道，想让矩阵满足 1-Lipschitz continuous，只需要让它所有元素同时除以它的最大奇异值，或者说是它的 spectural norm。因此，下一步的问题是如何计算 W 的最大奇异值。
+
+Power iteration 是用来近似计算矩阵最大的特征值（dominant eigenvalue 主特征值）和其对应的特征向量（主特征向量）的。
+
+详细数学原理：https://zhuanlan.zhihu.com/p/55393813
+
+代码项目：https://github.com/christiancosgrove/pytorch-spectral-normalization-gan
 
