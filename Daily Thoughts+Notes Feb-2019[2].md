@@ -1,0 +1,102 @@
+# Daily Thought (2019.2.11 - 2019.2.12)
+**Do More Thinking!** ♈ 
+
+**Ask More Questions!** ♑
+
+**Nothing But the Intuition!** ♐
+
+## Normalization专题（2.13-2.14）
+### 1. 为什么需要Normalization?
+主要解决深度神经网络中internal covariate shift问题，详见小本或链接
+
+https://zhuanlan.zhihu.com/p/33173246
+
+### 2. 机器学习最希望数据有什么特点？ 独立同分布
+独立同分布的介绍，数据白化的介绍，详见小本或链接
+
+https://zhuanlan.zhihu.com/p/33173246
+
+### 3. 深度学习中造成的internel covariate shift
+详见小本或链接
+
+https://zhuanlan.zhihu.com/p/33173246
+
+### 4. 深度神经网络模型为什么训练困难？
+详见小本或链接
+
+https://zhuanlan.zhihu.com/p/33173246
+
+### 5. Internel Covariate Shift（ICS）会造成什么?
+详见小本或链接
+
+https://zhuanlan.zhihu.com/p/33173246
+
+### 6. Normalization通用框架与基本思想
+详见小本和链接
+
+https://zhuanlan.zhihu.com/p/33173246
+
+### 7. Normalization方法操作
+详见小本和链接
+
+https://zhuanlan.zhihu.com/p/33173246
+
+### 8. Normalization进一步变化（第二步）的目的是什么？（明明第一步已经标准化了）
+详见小本和链接
+
+https://zhuanlan.zhihu.com/p/33173246
+
+### 9. Normalization第一步变化+第二步变化变来变去会不会跟没变一样？
+详见小本和链接
+
+https://zhuanlan.zhihu.com/p/33173246
+
+### 10. 这样的normalization变化离标准的白化还有多远？
+详见小本和链接
+
+https://zhuanlan.zhihu.com/p/33173246
+
+### 11. Batch Normalization (BN) 横向归一化
+详见小本和链接
+
+https://zhuanlan.zhihu.com/p/33173246
+
+### 12. Layer Normalization (LN) 纵向归一化
+详见小本和链接
+
+https://zhuanlan.zhihu.com/p/33173246
+
+### 13. Weight Normalization (WN) 权重归一化
+详见小本和链接
+
+https://zhuanlan.zhihu.com/p/33173246
+
+### 14. Cosine Normalization (CN) 余弦归一化
+详见小本和链接
+
+https://zhuanlan.zhihu.com/p/33173246
+
+### 15. 数学上分析Normalization为什么会有效？
+详见小本和链接
+
+https://zhuanlan.zhihu.com/p/33173246
+
+### 16. Batch Normalization 与 Instance Normalization对比 （其实就是Layer Normalization）
+BN和IN其实本质上是同一个东西，只是IN是作用于单张图片，但是BN作用于一个batch。但是为什么IN还会被单独提出，而且在Style Transfer的这个任务中大放异彩呢？
+
+主要是这样的逻辑：
+
+1. 通过调整BN统计量，或学习的参数beta和gamma，BN可以用来做domain adaptation。
+
+2. Style Transfer是一个把每张图片当成一个domain的domain adaptation问题。
+
+**在GAN，STYLE TRANSFER这类任务上IN的实验结论要优于BN**，给出的普遍的阐述性解释是：这类生成式方法，自己的风格比较独立不应该与batch中其他的样本产生太大联系。所以目前的结论是：在图片视频分类等特征提取网络中大多数情况BN效果优于IN，在生成式类任务中的网络IN优于BN。
+
+batch norm是对一个batch里所有的图片的所有像素求均值和标准差。而instance norm是对单个图片的所有像素求均值和标准差。
+
+这里其实可以看到的一个问题，由于shuffle的存在，每个batch里每次的均值和标准差是不稳定，本身相当于是引入了噪声。
+
+而instance norm的信息都是来自于自身的图片，某个角度来说，可以看作是全局信息的一次整合和调整。对于训练也说也是更稳定的一种方法。
+
+其实我们完全可以把instance norm当做L2 norm这种方法的一个变种。前者适合卷积层，后者适合全连接层。
+
