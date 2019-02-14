@@ -73,3 +73,15 @@ https://zhuanlan.zhihu.com/p/56501461
 ### 3. 图像分类比赛的一个trick
 
 一堆patch抽特征跑个ensemble模型，例如一张图crop五个部位，对预测值求平均。
+
+### 4. ColorNet数据增广新思路（新的trick）
+
+来自于清华大学2019年2月
+
+将原本图像来自于RGB空间的图像转化为HSV，HED, YIQ, YUV, LAB, YCbCr，这6个其他颜色空间的图像，将这七个颜色空间的数据传给7个DenseNet，然后将每个DenseNet输出传递到Dense Layer，有助于对每个颜色空间进行加权预测，Dense Layer的输出用作最终分类。
+
+![](__pics/colornet.jpg)
+
+实验效果提升了很多
+
+https://mp.weixin.qq.com/s/zo0mZih64-Bc883nIfVbUQ
