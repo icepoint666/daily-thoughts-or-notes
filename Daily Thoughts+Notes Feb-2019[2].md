@@ -1,4 +1,4 @@
-# Daily Thought (2019.2.11 - 2019.2.15)
+# Daily Thought (2019.2.11 - 2019.2.14)
 **Do More Thinking!** ♈ 
 
 **Ask More Questions!** ♑
@@ -115,6 +115,8 @@ batch norm是对一个batch里所有的图片的所有像素求均值和标准�
 我们已经知道，想让矩阵满足 1-Lipschitz continuous，只需要让它所有元素同时除以它的最大奇异值，或者说是它的 spectural norm。因此，下一步的问题是如何计算 W 的最大奇异值。
 
 Power iteration 是用来近似计算矩阵最大的特征值（dominant eigenvalue 主特征值）和其对应的特征向量（主特征向量）的。
+
+![](__pics/spectral-norm.jpg)
 
 详细数学原理：https://zhuanlan.zhihu.com/p/55393813
 
