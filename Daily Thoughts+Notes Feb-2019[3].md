@@ -1,4 +1,4 @@
-# Daily Thought (2019.2.14 - 2019.2.20)
+# Daily Thought (2019.2.14 - 2019.2.17)
 **Do More Thinking!** ♈ 
 
 **Ask More Questions!** ♑
@@ -206,3 +206,20 @@ FlowNet提出两种平行结构：
 ![](__pics/flownet_4.jpg)
 
 https://zhuanlan.zhihu.com/p/37736910
+
+### 8. A Two-step Disentanglement Method (CVPR2018) 阅读
+Disentanglement任务就是：就是将given data分解成与label相关的vector，以及与label完全无关的vector
+
+例如分类任务的mnist数据，存在是个label，1，2，。。。，10
+
+对于disentangle这样的数据就是保证分出来的不相关信息的语义向量分类错误率尽可能接近随机猜测错误率，也就是90%
+
+网络结构如下，其实整个实验设定和ECCV2016的实验设定一样，主要是网络结构不同了
+
+![](__pics/disentanglement.png)
+
+第一步单独训练EncoderS，然后在第二步固定
+
+主要好的地方就是，对抗分类器，Adv Classifier主要就是努力让EncoderZ，编码出来的向量Z尽可能分类错误，如果是数字1图片,那么2，3，4，5...，10就是判断错误，如果分类器得到1就是正确，会惩罚。
+
+同时Encoder根据S + Z再进行重构信息，保证信息的完整性，三轮训练DecoderZ, Encoder， 一轮训练Adv Classifier
