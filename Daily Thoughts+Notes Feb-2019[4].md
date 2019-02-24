@@ -47,6 +47,11 @@ cGAN 结构：
 ![](__pics/pix2pix_4.png)
 
 网络结构:
+
+生成器上替换decoder-encoder为U-net
+
+![](__pics/pix2pix_6.png)
+
 - Generator: U-net+skip-connections
 - Discriminator: PatchGAN
 
