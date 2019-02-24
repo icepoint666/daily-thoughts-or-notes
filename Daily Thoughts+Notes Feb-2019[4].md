@@ -55,6 +55,16 @@ cGAN 结构：
 - Generator: U-net+skip-connections
 - Discriminator: PatchGAN
 
+结构如下：
+
+![](__pics/pix2pix_8.png)
+
+![](__pics/pix2pix_7.png)
+
+![](__pics/pix2pix_9.png)
+
+![](__pics/pix2pix_10.png)
+
 **（后面2-6详细记录论文中的一些想法）**
 
 ### 2. L1/L2的pix2pix loss有什么问题呢？（pix2pix的启发）
