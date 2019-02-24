@@ -28,15 +28,15 @@
 
 cGAN loss (D最大化，G最小化):
 
-![](pix2pix.png)
+![](__pics/pix2pix.png)
 
 cGAN 结构：
 
-![](pix2pix_1.png)
+![](__pics/pix2pix_1.png)
  
 可以拿前面的loss函数与下面的loss函数对比一下，前者在discriminartor也加了condition
 
-![](pix2pix_2.png)
+![](__pics/pix2pix_2.png)
 
 之前有的方法证明 conditioning the discriminator + generator 的效果要优于只condition generator的效果
 
