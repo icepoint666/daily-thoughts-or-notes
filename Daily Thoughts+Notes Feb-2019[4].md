@@ -46,6 +46,12 @@ cGAN 结构：
 
 ![](__pics/pix2pix_4.png)
 
+网络结构:
+- Generator: U-net+skip-connections
+- Discriminator: PatchGAN
+
+**（后面2-6详细记录论文中的一些想法）**
+
 ### 2. L1/L2的pix2pix loss有什么问题呢？（pix2pix的启发）
 
 直接设置两张图片（预测与ground-truth）对应位置的pixel与pixel之间的euclidean distance 或者 曼哈顿距离为loss，会造成 **图像模糊**
@@ -71,6 +77,8 @@ cGAN 结构：
 
 ![](__pics/pix2pix_3.png)
 
+![](__pics/pix2pix_5.png)
+
 ### 5. cGAN中加z这样的随机性因子效果相对于不加会不会好一些呢？（pix2pix的启发）
 
 因为cGAN本身其实不像纯的GAN生成各式各样的图片，cGAN是在一个限制条件下完成生成任务，效果至上，不需要那么大的多样性。
@@ -80,6 +88,37 @@ cGAN 结构：
 pix2pix的实验中最初没有发现随机vector z对效果有太大帮助，于是最终实验设计的随机性完全依赖dropout，但是尽管dropout有随机性，但是对于网络输出结果这样的随机性还是很小。
 
 **（后续可以重点关注一下关于cGAN是否随机性，怎么随机性相关的讨论）**
+
+### 6. PatchGAN的思考 （pix2pix的启发）
+
+因为L2，L1 loss会产生模糊的结果，即使这两个loss一点都不鼓励高频的信息，但是它们很好的鼓励了低频信息，有些任务中也是很实用。
+
+但在这个任务中每个像素的颜色，这种低频信息确实不太重要。
+
+**所以有没有一种居中的策略，不像GAN那样极端高频，也不像L1/L2那样极端低频**
+
+所以设计了PatchGAN, 惩罚结构是在patch级别
+
+This discriminator tries to classify if each N × N patch in an image is real or fake.
+
+这个超参数N的选取也比较重要了.
+
+PatchGAN的优势：
+- fewer parameters
+- runs faster
+- can be applied on arbitrarily large images
+
+从PixelGANs 到 PatchGANs 到 ImageGANs
+
+![](__pics/patchgan.png)
+
+- L1: Uncertain regions become blurry and desaturated under L1
+- 1x1 PixelGAN encourages greater color diversity but has no effect on spatial statistics
+- 16x16 PatchGAN creates locally sharp results, but also leads to tiling artifacts beyond the scale it can observe.
+- 70×70 PatchGAN forces outputs that are sharp, even if incorrect, in both the spatial and spectral (colorfulness) dimensions
+- full 286×286 ImageGAN produces results that are visually similar to the 70×70 PatchGAN, but somewhat lower quality according to our FCN-score metric
+
+**（关注一下这篇文章之后的顶会引用或者高引）**
 
 
 
