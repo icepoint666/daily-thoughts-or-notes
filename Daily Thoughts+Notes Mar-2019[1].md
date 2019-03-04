@@ -50,9 +50,9 @@ Progressive Growing GAN则是shift attention to increasingly finer scale details
 
 **GAN在训练过程有一个趋势，就是只capture training data中的一个子集的variation**
 
-1.为了解决训练不稳定和G,D不良竞争的问题，提出两个tricks
+为了解决训练不稳定和G,D不良竞争的问题，提出两个tricks
 
-2016 Salimans et al.提出**minibatch discrimination**作为解决办法
+1. 2016 Salimans et al.提出**minibatch discrimination**作为解决办法
 
 Compute feature statistics not only from individual images but also across the minibatch
 
