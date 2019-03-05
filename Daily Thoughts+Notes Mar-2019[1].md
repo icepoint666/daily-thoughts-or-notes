@@ -24,6 +24,7 @@
 ![](__pics/FE-SNGAN_4.png)
 
 **Partial Convolution**
+
 [partial-conv](https://arxiv.org/pdf/1804.07723.pdf)使用masking以及re-normalization的步骤去使卷积只依赖于valid pixels
 
 ![](__pics/FE-SNGAN_1.png)
@@ -45,6 +46,7 @@ mask-update step:
 所以mask区域，会随着网络加深而越来越大
 
 **Gated Convolution**
+
 [gated-conv](https://arxiv.org/pdf/1806.03589.pdf)
 
 之前的mask update策略属于hard masks updated, 而对于gated convolution学习soft masks automatically
