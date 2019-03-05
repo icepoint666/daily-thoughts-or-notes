@@ -1,4 +1,4 @@
-# Daily Thought (2019.3.1 - 2019.3.10)
+# Daily Thought (2019.3.1 - 2019.3.5)
 **Do More Thinking!** ♈ 
 
 **Ask More Questions!** ♑
@@ -6,7 +6,7 @@
 **Nothing But the Intuition!** ♐
 
 ## FE-SNGAN论文收获
-### 1.在论文中怎么画网络结构图？（3.1)
+### 1.在论文中怎么画网络结构图？(3.1)
 ![](__pics/graph.png)
 
 注意：选用这种字体比较好看，gated-conv, SN-conv, dilated-conv可以分颜色画出来
@@ -18,11 +18,48 @@
 
 ![](__pics/progressive_gan_structure.png)
 
-### 3. 
+### 3. Partial-conv 与 Gated-conv
+**两者结构如下：**
+
+![](__pics/FE-SNGAN_4.png)
+
+**Partial Convolution**
+[partial-conv](https://arxiv.org/pdf/1804.07723.pdf)使用masking以及re-normalization的步骤去使卷积只依赖于valid pixels
+
+![](__pics/FE-SNGAN_1.png)
+
+- `圆圈`就表示element-wise multiplication逐元素相乘
+- `点`就表示点乘，就是卷积的功能
+- `sum(M)`表示的是，mask图中filter区域内值的总和
+
+mask-update step:
+
+![](__pics/FE-SNGAN_2.png)
+
+从而产生新的M(mask)通过上面更新公式
+
+显然问题就是：如果上一层filter范围内无论有多少个pixel是1，只要不是0个，那么下一层的mask这个位置就会被设置成1.
+
+1 valid pixel and 9 valid pixel for 3x3 filter 会被视为相同的更新策略
+
+所以mask区域，会随着网络加深而越来越大
+
+**Gated Convolution**
+[gated-conv](https://arxiv.org/pdf/1806.03589.pdf)
+
+之前的mask update策略属于hard masks updated, 而对于gated convolution学习soft masks automatically
+
+![](__pics/FE-SNGAN_3.png)
+
+`I`就是上一层的输入，最初的输入包含RGB channels, mask channel, sketch channel混在一起
+
+所以gated convolution就是相当于一种动态的特征选择机制对于each channel and each spatial location
+
+### 4. 论文中的loss解释
 
 ## Progressive Growing of GANs for Improved Quality, Stabiity and Variation （ICLR2018）- 17年10月
 
-### 4. 论文概述
+### 5. 论文概述(3.4)
 
 解决的**问题**是：如果GAN要生成large resolution的图像，训练时只能被迫选用小的minibatch，因为memory limitation，以及为了training stablity.
 
@@ -36,7 +73,7 @@ GAN的构想(formulation)其实没有明确要求resulting generative model能�
 
 3). 提出一种机制，有效的解决了传统的mode collaspses，这种不健康的竞争导致梯度爆炸，generator网络 + discriminator网络的signal magnitudes 逐步升级(escalate).
 
-### 5. Progressive Growing 策略
+### 6. Progressive Growing 策略
 
 **原来的GAN一步到位，所有图片大致内容结构 + fine scale details**
 
@@ -52,7 +89,7 @@ Progressive Growing GAN则是shift attention to increasingly finer scale details
 
 ![](__pics/progressive_gan_structure.png)
 
-### 6. Minibatch standard deviation（Minibatch stddev 层）
+### 7. Minibatch standard deviation（Minibatch stddev 层）
 
 **GAN在训练过程有一个趋势，就是只capture training data中的一个子集的variation**
 
@@ -72,7 +109,7 @@ Progressive Growing GAN则是shift attention to increasingly finer scale details
 
 所以上面的网络结构512层，变成513层，因为将原来层与前面计算的整个minibatch的统计特征层concatenate在一起（512+1=513）
 
-### 7.权值初始化(Weight Initialization)的回顾以及一种改进的权值调整策略
+### 8.权值初始化(Weight Initialization)的回顾以及一种改进的权值调整策略
 
 **事实上，如果训练过程中有动态normalization策略的话，权值初始化就没有显得那么必要了。
 
@@ -135,7 +172,7 @@ These methods normalize a gradient update by its estimated standard deviation, t
 
 **使用这种方法的话，可以使得learning speed is the same for all weights.**
 
-### 8. Pixelwise feature vector normalization 针对GAN的归一化策略
+### 9. Pixelwise feature vector normalization 针对GAN的归一化策略
 
 **关于GAN里面的normalization，为什么GAN不使用batch normalization**：
 
@@ -157,7 +194,7 @@ GAN很容易造成signal magnitudes escalation (也就是信号参数的量级�
 
 ![](__pics/LRN_2.png)
 
-### 9. Sliced Wasserstein distance （SWD）作为GAN的评价指标
+### 10. Sliced Wasserstein distance （SWD）作为GAN的评价指标
 **衡量图像生成质量与生成多样性 替代Inception score + MS-SSIM**
 
 **Inception score** 请移步Salimans et al. 的Improved techniques for training GANs的第四节
@@ -187,7 +224,7 @@ def sliced_wasserstein(A, B, dir_repeats, dirs_per_repeat):
 https://www.zhihu.com/question/67483407
 
 
-### 10. 论文：GAN Dissection: Visualizing and Understanding Generative Adversarial Networks
+## 论文：GAN Dissection: Visualizing and Understanding Generative Adversarial Networks
 本文主要目的：就是通过对GAN内部的represenations可视化，从来解释很多GAN产生的很多无法解释的问题样本。
 
 我们作为一个human observer，我们希望直观的了解为什么门会出现在建筑物上而不是树上
