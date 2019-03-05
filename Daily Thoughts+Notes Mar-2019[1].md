@@ -5,7 +5,10 @@
 
 **Nothing But the Intuition!** ♐
 
-## FE-SNGAN论文收获
+## FE-SNGAN（Face Editing Generative Adversarial Network with User’s Sketchand Color）论文收获
+
+这篇文章不好的地方就是很多tricks以及做法为什么好，没有去证明或者解释
+
 ### 1.在论文中怎么画网络结构图？(3.1)
 ![](__pics/graph.png)
 
@@ -58,6 +61,70 @@ mask-update step:
 所以gated convolution就是相当于一种动态的特征选择机制对于each channel and each spatial location
 
 ### 4. 论文中的loss解释
+
+网络结构如上图：
+
+- LRN(Local Response Normalization) is applied after all convolution layers except input and output.(就是下面那篇文章的normalization策略，第9点)
+- We used `tanh` as activation function for output of generator. 
+- We used `SN convolution` layer for discriminator.
+
+**Generator**
+
+![](__pics/FE-SNGAN_5.png)
+
+##### per-pixel loss：
+
+就是L1 distance between ground truth image I_gt and the output of generator I_gen
+
+I_comp就是合成图片
+
+![](__pics/FE-SNGAN_6.png)
+
+- N_a is the number elements of feature a
+- M is the binary mask map and Igen is the output of generator. 
+- We used the factor α > 1 to give more weight the loss on the erased part.
+
+也就是对比输出的结果与ground truth, 超参数α用来控制突出缺失区域inpainting的对于loss的重要性
+
+##### perceptual loss:
+
+也是计算L1 distance，但是是将images映射到VGG-16网络的feature maps中，VGG网络是Image-Net预训练的网络
+
+![](__pics/FE-SNGAN_7.png)
+
+##### style loss:
+
+style loss通过比较两个图像内容使用Gram matrix
+
+![](__pics/FE-SNGAN_8.png)
+
+##### SN_GAN loss:
+
+![](__pics/FE-SNGAN_9.png)
+
+Spectual Normalization的GAN loss就是这样定义的，E表示期望
+
+##### total variation loss:
+
+由fast-neural-style提出，用于从perceptual loss中提升checkerboard artifacts
+
+![](__pics/FE-SNGAN_10.png)
+
+![](__pics/FE-SNGAN_11.png)
+
+![](__pics/FE-SNGAN_12.png)
+
+其中R就是确缺失待修复的区域
+
+**Discriminator**
+
+![](__pics/FE-SNGAN_13.png)
+
+前面就是GAN的对抗loss，WGAN-GP loss用于提升训练，通过GP+SN联合提升WGAN的训练
+
+![](__pics/FE-SNGAN_14.png)
+
+上面是所有的超参数取值
 
 ## Progressive Growing of GANs for Improved Quality, Stabiity and Variation （ICLR2018）- 17年10月
 
