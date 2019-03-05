@@ -70,14 +70,92 @@ Progressive Growing GAN则是shift attention to increasingly finer scale details
 
 ![](__pics/minibatch_stddev.png)
 
-所以上面的网络结构512层，变成513层
+所以上面的网络结构512层，变成513层，因为将原来层与前面计算的整个minibatch的统计特征层concatenate在一起（512+1=513）
 
-### 7.权值初始化(Weight Initialization)的回顾以及一种改进的权值初始化策略
+### 7.权值初始化(Weight Initialization)的回顾以及一种改进的权值调整策略
 
-### 8. Pixelwise feature vector normalization 的归一化策略
+**事实上，如果训练过程中有动态normalization策略的话，权值初始化就没有显得那么必要了。
 
+**Random Initalization 随机初始化**
 
-![](__pics/progressive_gan_2.png)
+例如：均值为0，标准差为0.01, 非线性变换为tanh，经历10层神经网络，这样的权值初始化就会造成gradient越来越小。
+
+每一层输出分布的直方图：
+
+![](__pics/weight_init_1.jpg)
+
+如果调整，均值为0，标准差为1，那么：
+
+![](__pics/weight_init_2.png)
+
+神经元就会saturated了
+
+**Xavier Initialization**
+
+Xavier初始化的基本思想是保持输入和输出的方差一致，这样就避免了所有输出值都趋向于0
+
+```python
+W = tf.Variable(np.random.randn(node_in, node_out)) / np.sqrt(node_in)
+```
+
+Xavier初始化的推导过程是基于线性函数的，但是它在一些非线性神经元中也很有效，例如tanh
+
+![](__pics/weight_init_3.png)
+
+但是对于有些函数例如ReLU，效果就没那么理想了
+
+![](__pics/weight_init_4.png)
+
+前面看起来还不错，后面的趋势却是越来越接近0
+
+**He Initialization**
+
+专门用来解决ReLU初始化的问题，在ReLU网络中，假定每一层有一半的神经元被激活，另一半为0，所以，要保持variance不变，只需要在Xavier的基础上再除以2.
+
+```python
+W = tf.Variable(np.random.randn(node_in,node_out)) / np.sqrt(node_in/2)
+......
+fc = tf.nn.relu(fc)
+```
+![](__pics/weight_init_5.png)
+
+**本文**
+
+不使用当前的那些careful (考虑周到的) weight initialization，而是使用`N(0, 1)`正态分布的权值初始化，之后明确的去scale weight在运行过程中
+
+![](__pics/weight_init_6.png)
+
+c is the per-layer normalization constant from He’s initializer
+
+这样做的优势就是动态的调整权重值，而不是只是权值在初始化的时候调整，那样影响比较subtle微小。
+
+这样的方法类似于训练过程中的weight normalization的感觉
+
+These methods normalize a gradient update by its estimated standard deviation, thus making the update independent of the scale of the parameter.
+
+**使用这种方法的话，可以使得learning speed is the same for all weights.**
+
+### 8. Pixelwise feature vector normalization 针对GAN的归一化策略
+
+**关于GAN里面的normalization，为什么GAN不使用batch normalization**：
+
+GAN很容易造成signal magnitudes escalation (也就是信号参数的量级爆炸)，这样就会导致两个网路generator与discriminator之间不健康的竞争
+
+早期的方法都是用batch normalization的变体，但是batch normalization主要是为了消除covariate shift, 但是这个问题没有怎么在GAN中发现。
+
+**GAN中最需要的其实是，限制signal magnitudes 以及 控制良好的competition**
+
+**上面那种weight initialization策略以及下面这种normalization策略都可以在不引入参数的情况下有效达到上面的两个目的**
+
+为了阻止the magnitudes in generator and discriminator spiral out of control
+
+做法：Normalize the feature vector in each pixel to unit length in the generator after each convolutional layer
+
+使用的是Local Response Normalization (LRN) 的变体
+
+![](__pics/LRN.jpg)
+
+![](__pics/LRN_2.png)
 
 ### 9. Sliced Wasserstein distance （SWD）作为GAN的评价指标
 **衡量图像生成质量与生成多样性 替代Inception score + MS-SSIM**
@@ -109,7 +187,7 @@ def sliced_wasserstein(A, B, dir_repeats, dirs_per_repeat):
 https://www.zhihu.com/question/67483407
 
 
-### 6. 论文：GAN Dissection: Visualizing and Understanding Generative Adversarial Networks
+### 10. 论文：GAN Dissection: Visualizing and Understanding Generative Adversarial Networks
 本文主要目的：就是通过对GAN内部的represenations可视化，从来解释很多GAN产生的很多无法解释的问题样本。
 
 我们作为一个human observer，我们希望直观的了解为什么门会出现在建筑物上而不是树上
