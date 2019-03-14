@@ -59,7 +59,7 @@ https://blog.csdn.net/sinat_21585785/article/details/75087768
 
 可以在不引入参数的情况下，实现local Responce Normalization
 
-**实现**
+**标准LRN实现**
 
 pytorch实现：
 
