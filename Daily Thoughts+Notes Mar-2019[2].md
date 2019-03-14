@@ -94,5 +94,6 @@ tf.nn.lrn(
     alpha=1,
     beta=0.5,
     name=None
+    )
 ```
 
