@@ -113,7 +113,7 @@ tf.nn.lrn(
 
 ### 4.评估GAN合成图片的度量，Inception Score, Frechet inception distance(FID)
 
-> 2019-Mar-1.9 提到了PSNR，SSIM，以及替代IS，SSIM的新指标
+> 2019-Mar-1.9 提到了PSNR，SSIM，以及替代IS，SSIM的新指标：Sliced Wasserstein distance（SWD）
 
 ##### Inception Score
 
@@ -145,4 +145,13 @@ inception score的思想，是通过将生成模型的评估问题，通过映�
 
 https://www.zhihu.com/question/297551781/answer/506852113
 
-##### 
+##### Frechet Inception Distance (FID)
+提出于Frechet inception distance (Heusel et al., 2017)
+
+是一种衡量生成样例质量的方法，主要使用应用于生成样例的 inception model 的 final layer 的 2nd order information.
+
+The Frechet distance (Dowson & Landau (1982)) is **2-Wasserstein distance** between two distribution p1 and p2 assuming they are both multivariate Gaussian distributions
+
+![](__pics/FID.png)
+
+
