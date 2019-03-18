@@ -1,4 +1,4 @@
-# Daily Thought (2019.3.6 - 2019.3.13)
+# Daily Thought (2019.3.6 - 2019.3.18)
 **Do More Thinking!** ♈ 
 
 **Ask More Questions!** ♑
@@ -110,3 +110,39 @@ tf.nn.lrn(
 对于tensorflow代码，可能你在测试的模型代码中把输出tensor的shape其中的，h， w维度设置成None，这样并不影响什么，因为tensorflow会根据你的输入以及函数功能自动生成输出的Tensor。
 
 对于Pytorch完全不用考虑输入尺寸这个指定的问题了。
+
+### 4.评估GAN合成图片的度量，Inception Score, Frechet inception distance(FID)
+
+> 2019-Mar-1.9 提到了PSNR，SSIM，以及替代IS，SSIM的新指标
+
+##### Inception Score
+
+Inception score is introduced originally by Salimans et al. (2016)
+
+![](__pics/inception_score_1.svg)
+
+![](__pics/inception_score_3.png)
+
+p(y|x) is a trained Inception convolutional neural network
+
+推导出上式的意义：
+
+![](__pics/inception_score_2.svg)
+
+我们可以得到要使得生成图像的inception score高，就需要：
+
+**1.最大化H(y);也就是对于输入的样本，通过inception_v3模型后的类别要均衡，衡量模式坍塌。**
+
+**2.最小化H(y|x);说明对于输入的样本，通过inception_v3模型后预测某类别的置信度要高，衡量图片生成的质量。**
+
+Barratt, Shane, and Rishi Sharma. "A Note on the Inception Score."arXiv preprint arXiv:1801.01973(2018).
+
+衡量图片的生成质量是一个比较难的问题，一直以来也没有一个特别好的度量方式
+
+inception score的思想，是通过将生成模型的评估问题，通过映射到分类器上，以此来简化评估的难易程度，是一个非常好的创新。当然这种映射必然存在的问题就是信息的丢失。
+
+真实图片的inception_score是肯定比较高的，但是inception score高并不能代表生成的质量就好。(最简单的例子就是通过adversarial samples,可以通过简单的生成每个类的特征图谱，看似噪声的图像，但是其inception score会很高。)
+
+https://www.zhihu.com/question/297551781/answer/506852113
+
+##### 
