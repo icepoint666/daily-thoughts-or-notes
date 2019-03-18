@@ -113,7 +113,7 @@ tf.nn.lrn(
 
 ### 4.评估GAN合成图片的度量，Inception Score, Frechet inception distance(FID)
 
-> 2019-Mar-1.9 提到了PSNR，SSIM，以及替代IS，SSIM的新指标：Sliced Wasserstein distance（SWD）
+> 2019-Mar-1.10 提到了PSNR，SSIM，以及替代IS，SSIM的新指标：Sliced Wasserstein distance（SWD）
 
 ##### Inception Score
 
