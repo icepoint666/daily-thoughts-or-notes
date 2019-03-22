@@ -7,5 +7,6 @@
 
 ## 论文 A Style-Based Generator Architecture for Generative Adversarial Networks (StyleGAN) 精读
 
+Author: `NVIDIA`的`Tero Karras`,也是`Progressive GAN`的作者
 ### 1.
 
