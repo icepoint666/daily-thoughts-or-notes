@@ -5,7 +5,7 @@
 
 **Nothing But the Intuition!** ♐
 
-## 论文 A Style-Based Generator Architecture for Generative Adversarial Networks 精读
+## 论文 A Style-Based Generator Architecture for Generative Adversarial Networks (StyleGAN) 精读
 
 ### 1.
 
