@@ -5,7 +5,7 @@
 
 **Nothing But the Intuition!** ♐
 
-## 论文 Object-driven Text-to-Image Synthesis via Adversarial Training （obj-GAN） 精读
+## 论文 Object-driven Text-to-Image Synthesis via Adversarial Training （obj-GAN） （CVPR2019）精读
 
 #### 文本合成图像
 
@@ -38,3 +38,6 @@
 ![](__pics/obj-gan-5.png)
 
 ![](__pics/obj-gan-6.png)
+
+## 论文 GAN DISSECTION: VISUALIZING AND UNDERSTANDING GENERATIVE ADVERSARIAL NETWORKS （ICLR2019）略读
+
