@@ -41,3 +41,34 @@
 
 ## 论文 GAN DISSECTION: VISUALIZING AND UNDERSTANDING GENERATIVE ADVERSARIAL NETWORKS （ICLR2019）略读
 
+![](__pics/visual.png)
+
+文章的introduction写的非常好，本文的目的就是研究GAN的内部representation，例如:去解释一个门为什么出现在一个building上而不是一个tree上。
+
+**主要贡献**
+
+1.提出一种方法去visualizing and understanding GANs 在不同的抽象level上， 从每个neuron，到每个object，到不同物体之间的contextual relationship.
+
+2.能够去manipulating images with interactive object-level control
+
+**主要方法**
+
+这篇文章主要是分析：object(such as tree) 是怎样被生成器G 的 internal representation 编码的（encoded）
+
+用`r`表示生成器generator中间某层的的tensor, `z`表示latent vector，`x`表示 `HxWx3` 的生成图片
+
+我们有一个类class C在图像中
+
+`r`包含所有产生图片x的必要数据, `r`也包含着信息去deduce（引起）任何可能在图片中出现的类，
+
+所以问题不是要知道是否关于class C的信息被presented在`r`里面，而是这样的信息怎样被编码在r里面
+
+对于r在location P可能由两部分组成
+
+![](__pics/visual-1.png)
+
+- unit相当于feature map的一个channel
+- U表示the set of unit indices of interest
+- U补集就表示complement
+
+![](__pics/visual-2.png)
