@@ -98,8 +98,15 @@ k是对于不同类别c，将会有不同值的 constant（hyper parameters）
 
 **Finding sets of units with high ACE**
 
-也就是找到a set of units可以最大化ACE
+也就是找到a set of units可以最大化ACE，通过优化函数，找到最优的alpha
 
 ![](__pics/visual-6.png)
 
+![](__pics/visual-7.png)
+
 ### 实验部分
+对于不同的scenc categories， network layers， GAN models，可视化的units上采样都可以解释效果
+
+![](__pics/visual-8.png)
+
+![](__pics/visual-9.png)
