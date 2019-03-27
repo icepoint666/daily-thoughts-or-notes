@@ -95,4 +95,25 @@ Spearable卷积方法，假如`DM=4`，这样中间层的channel数为`128x4=512
 
 https://www.zhihu.com/question/62478193/answer/200145164
 
+### 3. guided anchoring （CVPR2019）
+anchor是什么？
 
+- 对于two stage的目标检测，anchor是预测候选的proposals
+- 对于one stage的目标检测，anchor是就是最终的bounding box
+
+anchor主要是找到interesting object的位置，以及scale，aspect ratio (水平，垂直方向的比率)
+
+anchor一般的设计原则，alignment，consistency方法要满足这两个原则
+
+**主要贡献**
+
+主流anchoring框架，依赖uniform arrangement，往往找到的anchor比例都比较固定例如`1:3`, `1:1`, `3:1`，如果有特别长或者特别宽的object，很难给出很好的proposals.
+
+本文的anchoring方式就是考虑到object位置，形状是non-uniform distribution的，We propose a new anchoring scheme with the ability to predict
+non-uniform and arbitrary shaped anchors other than dense and predefined ones，不再是像传统的anchoring方法那样slided window（滑窗）
+
+**效果**
+
+With Guided Anchoring, we achieve
+- `9.1%` higher recall on `MS COCO` with `90%` fewer anchors than the `RPN` baseline. 
+- We also adopt Guided Anchoring in `Fast R-CNN`, `Faster R-CNN` and `RetinaNet`, respectively improving the detection mAP by `2.2%`, `2.7%` and `1.2%`
