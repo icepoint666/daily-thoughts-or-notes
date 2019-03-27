@@ -47,6 +47,8 @@ https://zhuanlan.zhihu.com/p/37998710
 
 ### 2. DSConv (Depthwise Separable Convolution)
 
+**思想：Depthwise(每个channel单独卷积) + Pointwise(channel融合后，1x1，每个点单独卷积)**
+
 Xception、MobileNet等轻量化模型中使用深度可分离卷积（Depthwise Separable Convolution）
 
 主要目的就是减小模型参数量，并且保证效果依旧不错的前提下
@@ -71,7 +73,7 @@ Group Convolution是指将channels细分成多个group,然后再分组进行Conv
 
 如果OD是`256`，ID是`128`，卷积核大小`3x3`，需要的参数为`128x3x3x256=294912`个参数
 
-Spearable卷积方法，假如`DM=4`，这样中间层的channel数为`128x4=512`，再经过`1x1`卷积降维到`256`个channel，需要的总参数为：`128x3x3x4 + 128x4x1x1x256 = 135680`，参数量相当于普通卷积的`46%`，还增加了通道数`128x4=512` 增强了特征表达能力。
+Spearable卷积方法，假如`DM=4`，这样中间层的channel数为`128x4=512`，再经过`1x1`卷积降维到`256`个channel，需要的总参数为：`128 x (1x3x3x4 + 4x1x1x256) = 135680`，`Depthwise + pointwise` 参数量相当于普通卷积的`46%`，还增加了通道数`128x4=512` 增强了特征表达能力。
 
 ![](__pics/DSConv_2.jpg)
 
