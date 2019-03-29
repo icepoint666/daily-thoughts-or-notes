@@ -85,7 +85,7 @@ https://zhuanlan.zhihu.com/p/33173246
 
 https://zhuanlan.zhihu.com/p/33173246
 
-### 16. Batch Normalization 与 Instance Normalization对比 （其实就是Layer Normalization）
+### 16. Batch Normalization 与 Instance Normalization对比 
 BN和IN其实本质上是同一个东西，只是IN是作用于单张图片，但是BN作用于一个batch。但是为什么IN还会被单独提出，而且在Style Transfer的这个任务中大放异彩呢？
 
 主要是这样的逻辑：
