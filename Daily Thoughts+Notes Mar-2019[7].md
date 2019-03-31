@@ -4,4 +4,4 @@
 **Ask More Questions!** ♑
 
 **Nothing But the Intuition!** ♐
-##论文 Semantic Image Synthesis with Spatially-Adaptive Normalization (GauGAN) 精读
+## 论文 Semantic Image Synthesis with Spatially-Adaptive Normalization (GauGAN) 精读
