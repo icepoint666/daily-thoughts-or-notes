@@ -69,3 +69,5 @@ https://github.com/vacancy/Synchronized-BatchNorm-PyTorch
 
 ![](__pics/GauGAN_16.png)
 
+### 8.L1 loss与L2 loss在图像修改上的一些影响
+相比于`L1 loss`,`L2 loss`对于像素上的微小变化显然影响较小,`L2 loss`对于像素修改较大变动时会有很大的loss，可能对于图像增强会有比较好的效果
