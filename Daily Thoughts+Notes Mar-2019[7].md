@@ -48,6 +48,8 @@ image classification这种任务输入224x224，299x299，一个12GB显存的卡
 
 ![](__pics/GauGAN_8.png)
 
+https://github.com/vacancy/Synchronized-BatchNorm-PyTorch
+
 ### 6. 网络结构
 ![](__pics/GauGAN_9.png)
 
