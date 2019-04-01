@@ -30,6 +30,13 @@ The new architecture leads to an automatically learned, unsupervised separation 
 
 **理论依据**：来源于BigGAN，他们发现使用正交正则化（orthogonal regularization）来训练生成器，可以使其具有简单的截断特性（truncation trick），可以通过截断潜在空间的调节,在样本保真度和多样性之间精细调节。这种调节方法可以让模型在图像生成中达到当前的最佳性能.
 
+**目的**：
+对于GAN来说，隐变量的分布其实可以是任意分布，但是这个改变肯定会对生成结果产生影响，这个影响不一定是坏的影响：
+
+BigGAN中做的`truncation trick`就是对于分布采样的一个控制，起到平衡多样性和真实性的作用。
+
+另外综合不同的分布也可以提高GAN在ensemble中的多样性（MPM-GAN）
+
 ### 3. mixing regularization 
 在训练的时候，使用两个latent code（两个z），而不是一个
 
