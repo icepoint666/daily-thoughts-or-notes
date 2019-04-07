@@ -89,3 +89,5 @@ After the spatial encoder,a regression layer is added, which directly outputs th
 **实验结果**
 
 ![](__pics/crowd_counting_8.png)
+
+Table4表示： 是在这五个数据集上训练，但是，是在pretrained on GCC 的 model 上去 finetune的，使用SFCN，不过效果依然超过了很多18年的state-of-the-art
