@@ -6,7 +6,7 @@
 **Nothing But the Intuition!** ♐
 
 ## Crowd Counting 方向 state-of-the-art总结
-### 论文：Learning from Synthetic Data for Crowd Counting in the Wild (CVPR2019)
+### 论文1：Learning from Synthetic Data for Crowd Counting in the Wild (CVPR2019)
 
 **主要贡献** 创造了新的数据集，这个数据集是在GTA5上制作的，经过domain adaption将虚拟风格的图片转换成现实风格的图片
 
@@ -75,7 +75,7 @@ After the spatial encoder,a regression layer is added, which directly outputs th
 
 Table4表示： 是在这五个数据集上训练，但是，是在pretrained on GCC 的 model 上去 finetune的，使用SFCN，不过效果依然超过了很多18年的state-of-the-art
 
-### 论文：ADCrowdNet: An Attention-injective Deformable Convolutional Network forCrowd Understanding (CVPR2019)
+### 论文2：ADCrowdNet: An Attention-injective Deformable Convolutional Network forCrowd Understanding (CVPR2019)
 
 关于crowd counting的任务，一般解决方案有两个
 - crowd counting by detection
