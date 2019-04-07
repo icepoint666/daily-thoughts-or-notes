@@ -20,8 +20,6 @@ GTA5 Crowd Counting(GCC) 数据集概况：
 
 **解决方法** 使用一种`Spatial Fully Convolutional Networks`
 
-![](__pics/crowd_counting_3.png)
-
 **SFCN**
 
 FCN就是用于关注 pixel-wise task (such as semantic segmentation,  saliency detection）
@@ -75,3 +73,19 @@ Spatial CNN，这里的Spatial不是指Spatial Convolution，而是CNN通过特�
 SCNN相比于传统方法，有三个优势
 
 ![](__pics/crowd_counting_7.png)
+
+**Spatial FCN**
+
+本文使用的网络结构
+
+![](__pics/crowd_counting_3.png)
+
+Backbone: `VGG-16` ,`Resnet-101`
+
+The spatial encoder is added to the top of the backbone.
+
+After the spatial encoder,a regression layer is added, which directly outputs the den-sity map with input’s 1/8 size.
+
+**实验结果**
+
+![](__pics/crowd_counting_8.png)
