@@ -46,25 +46,8 @@ CNN将视觉理解推向了一个新的高度。但是这依然不能很好地�
 
 **马尔科夫随机场（Markov Random Field, MRF）**
 
-马尔科夫随机场其实就是一种概率图，叫做无向图，所谓无向图就是用没有方向的线连接节点构成的图。注意我们概率图的目的是为了描述概率关系，在马尔科夫随机场中，有线相连的两个节点就是不独立的。但是没有线相连的节点一定是独立的吗？答案是否定的。只要两个节点之间有一条通路，这两个节点就是不独立的（间接有关系）。 仔细想一下，如果节点有通路就不独立的话，那岂不是马尔科夫随机场中所有的节点都不是独立的了？这样的话，比如我要求某个节点表现出0的概率，那么我就需要确定所有其他变量对它造成的影响，这实在是太不简洁了。因此在马尔科夫场中还有一个性质，就是如果一个点的直接相邻节点都确定了的话，那么这个点的概率就和所有非相邻节点都独立了，这也就是所谓的马尔科夫性。也就是说，假如我已知X12和X21的取值的话，那么X11的取值仅和他们有关，与其余的所有节点都无关。
+马尔科夫随机场其里的Spatial不是指Spatial Convolution，而是CNN通过特征的设计架构传递空间信息。SCNN更有效的学习空间关系，能平滑的找出连续的有强先验的结构目标。SCNN的整体架构如下：
 
-![](__pics/crowd_counting_4.jpeg)
-
-![](__pics/crowd_counting_5.png)
-
-**条件随机场（Conditional Random Field, CRF）**
-
-条件随机场是条件概率分布模型 P(Y|X) ，表示的是给定一组输入随机变量 X 的条件下另一组输出随机变量 Y 的马尔可夫随机场，也就是说 CRF 的特点是假设输出随机变量构成马尔可夫随机场。
-
-条件随机场可被看作是最大熵马尔可夫模型在标注问题上的推广。
-
-https://www.cnblogs.com/Determined22/p/6915730.html
-
-**传统的方法**
-
-传统方法在传递信息时，每个像素点接受来自全图其他像素的信息，这在计算上是非常昂贵的，难以应用于实时系统。且对于MRF的大卷积核权重很难学。这些方法是应用在CNN的输出上的，论文认为CNN的隐藏层，包含了丰富的空间关系，可更好的用于处理空间关系。
-
-Spatial CNN，这里的Spatial不是指Spatial Convolution，而是CNN通过特征的设计架构传递空间信息。SCNN更有效的学习空间关系，能平滑的找出连续的有强先验的结构目标。SCNN的整体架构如下：
 
 ![](__pics/crowd_counting_6.png)
 
@@ -91,3 +74,98 @@ After the spatial encoder,a regression layer is added, which directly outputs th
 ![](__pics/crowd_counting_8.png)
 
 Table4表示： 是在这五个数据集上训练，但是，是在pretrained on GCC 的 model 上去 finetune的，使用SFCN，不过效果依然超过了很多18年的state-of-the-art
+
+### 论文：ADCrowdNet: An Attention-injective Deformable Convolutional Network forCrowd Understanding (CVPR2019)
+
+关于crowd counting的任务，一般解决方案有两个
+- crowd counting by detection
+- crowd counting by regression
+
+这篇文章解决思路基本运用下面理念
+- 1. crowd understanding by CNN
+- 2. crowd counting by regression
+
+网络结构（整个网络结构叫做 Attention-injective Deformable Convolutional Network）：
+
+![](__pics/ADCrowdNet_1.png)
+
+网络结构分为两个部分：
+
+AMG 用于生成 Attention map，DME用于生成density map，具体是先训练第一阶段AMG模块，使用`crowd images`作为`positive`样本，使用`background images`作为`nagative`样本，之后使用训练过的AMG module，从输入图片中计算出attention map，然后根据attention map与原图进行pixel-wise product，然后得到的乘积作为第二阶段模块DME的输入，然后得到density map.
+
+**AMG (Attention Map Generator)**
+
+attention map本质是一个feature map来自于二分类网络，原本网络就是一个二分类网络，群体图片与非群体图片的分类，之后经过卷积层得到一些feature，通过一些操作，将feature map融合，得到具有空间响应信息的attention map.
+
+pipeline：
+
+![](__pics/ADCrowdNet_2.png)
+
+网络结构：
+
+- front end: 使用VGG-16的前10层去extract low-level的信息
+- back end: 采用不同dilated rate的空洞卷积，并使用类似与Inception的结构，这样使用多个空洞卷积可以增大感受野，对于inception模块，只要目的是整合visual信息在不同的scale下面，使用这种模块可以去处理不同拥塞程度的群体场景。
+
+![](__pics/ADCrowdNet_3.png)
+
+**DME (Density Map Estimator)**
+
+- front end: 同样是使用VGG-16的前面10层去extract low-level的信息
+- back end: 使用multi-scale deformable convolutional layer并且也具有相似的inception module，好处就是能够使得DME很好的应对多种的遮挡，复杂的群体分布。
+
+![](__pics/ADCrowdNet_4.png)
+
+这种deformable卷积的设计其实还是比较有效的，能够很好的应对采样点的offset，而不是像普通卷积那样的均匀采样，uniform-sampling，deformable-conv能够通过在训练中调整优化然后学习这些采样点
+
+**实验细节**
+
+所使用的数据集情况
+
+![](__pics/ADCrowdNet_5.png)
+
+这四个数据集各自的特性：
+
+In general, the scenes in ShanghaiTech Part A dataset are congested and noisy. Examples in ShanghaiTech Part B are noisy but not highly congested. The UCF CC 50 dataset consists of extremely congested scenes which have hardly any background noises. Both WorldExpo’10 dataset and UCSD dataset provide example with sparse crowd scenes in the form of ROI regions. Scenes in the ROI regions of the WorldExpo’10 dataset are generally noisier than the only one scene in the UCSD dataset.
+
+一些评价度量(Metrics)：
+
+对于所估计的度量，使用mean absolute error(MAE),mean square error(MSE)作为预测的 density map 的 quantitive evaluation.
+
+使用PSNR以及SSIM去预测生成的density map的质量
+
+训练细节：
+
+![](__pics/ADCrowdNet_6.png)
+
+**实验结果**
+
+关于各个模块的作用，做这样的验证实验
+
+比较下面四个模型：
+- DME: 只使用DME网络
+- AMD-DME: 使用AMD+DME网络，其中的AMD得到的attention map的值是`[0,1]`之间的，将这个attention map与原图进行点积，相当于是soft attention
+- AMD-bAttn-DME: 同样也是对AMD得到的attention map与原图进行点积，但是不同的是这个attention map的值是二值的mask，也就是有一个阈值t，对AMD得到的attention map进行了处理，高于阈值当作1，低于阈值当作0，关于阈值的影响也有一个实验
+![](__pics/ADCrowdNet_8.png)
+- AMD-attn-DME: 不同与之前的处理，这里是选择将attention map注入到DME的front-end与back-end之间
+![](__pics/ADCrowdNet_9.png)
+
+试验结果：
+
+![](__pics/ADCrowdNet_7.png)
+
+关于实验结果的一些解释如下：
+
+针对不同数据集，不同方法会产生不同的结果
+
+- 对于Shanghai_A + Shanghai_B数据集，发现`AMD-DME`效果要好于`AMD-attn-DME`，因为Shanghai数据集比较多congested noisy scenes，所以如果选择在中间注入AMG的attention map，里面会存在一些zero值，这样对于DME的front-end所学习到的一些信息与0进行乘积，就是一种损失。
+- 对于UCF_CC_50 + UCSD数据集，发现这些方法都要比单纯使用`DME`要差，因为这两个数据集相对noise background比较少
+- 对于UCSD + WorldExpo’10数据集，`AMG-attn-DME`实现了更好的效果，因为卷积特征消失问题被避免了。
+- 对于UCSD数据集，场景不算congested以及noisy，对于MSE/MAE,`AMG-DME`的效果都要差于`DME`这可能是因为UCSD数据集已经提供了精确的信息属于ROI regions，所以AMG生成的attention map会破坏DME网络的效果
+
+其他结果：
+
+![](__pics/ADCrowdNet_10.png)
+
+![](__pics/ADCrowdNet_11.png)
+
+![](__pics/ADCrowdNet_12.png)
