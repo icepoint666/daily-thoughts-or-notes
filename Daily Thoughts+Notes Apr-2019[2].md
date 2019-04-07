@@ -53,3 +53,25 @@ CNN将视觉理解推向了一个新的高度。但是这依然不能很好地�
 ![](__pics/crowd_counting_4.jpeg)
 
 ![](__pics/crowd_counting_5.png)
+
+**条件随机场（Conditional Random Field, CRF）**
+
+条件随机场是条件概率分布模型 P(Y|X) ，表示的是给定一组输入随机变量 X 的条件下另一组输出随机变量 Y 的马尔可夫随机场，也就是说 CRF 的特点是假设输出随机变量构成马尔可夫随机场。
+
+条件随机场可被看作是最大熵马尔可夫模型在标注问题上的推广。
+
+https://www.cnblogs.com/Determined22/p/6915730.html
+
+**传统的方法**
+
+传统方法在传递信息时，每个像素点接受来自全图其他像素的信息，这在计算上是非常昂贵的，难以应用于实时系统。且对于MRF的大卷积核权重很难学。这些方法是应用在CNN的输出上的，论文认为CNN的隐藏层，包含了丰富的空间关系，可更好的用于处理空间关系。
+
+Spatial CNN，这里的Spatial不是指Spatial Convolution，而是CNN通过特征的设计架构传递空间信息。SCNN更有效的学习空间关系，能平滑的找出连续的有强先验的结构目标。SCNN的整体架构如下：
+
+![](__pics/crowd_counting_6.png)
+
+(图中SCNN的下标有D,U,R,L，这在结构上是类似的，方向上分别表示为向下，向上，向右，向左)
+
+SCNN相比于传统方法，有三个优势
+
+![](__pics/crowd_counting_7.png)
