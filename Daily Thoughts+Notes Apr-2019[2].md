@@ -169,3 +169,10 @@ In general, the scenes in ShanghaiTech Part A dataset are congested and noisy. E
 ![](__pics/ADCrowdNet_11.png)
 
 ![](__pics/ADCrowdNet_12.png)
+
+### 论文3：Almost Unsupervised Learning for Dense Crowd Counting (AAAI2019)
+**crowd counting的主要问题：**
+
+crowd counting的一个主要问题是数据少，标注难度大，而且如果当成person识别，一般往往不具有person的完全特征，而且样式多种多样，有些特别小识别不出来，解决办法一般都是无监督数据
+
+存在的无监督方法大多都是基于autoencoder
