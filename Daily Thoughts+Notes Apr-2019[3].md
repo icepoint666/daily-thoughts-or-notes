@@ -49,7 +49,7 @@ ReLU这个东西，其实就是一个滤波器，只不过这个滤波器的作�
 
 降低数据中信息的冗余度。
 
-![](__pics/resnet_known_2.jpg)
+![](__pics/resnet_known_2.png)
 
 x分支：对非冗余信息采用了线性激活（通过skip connection获得无冗余的identity部分）
 
