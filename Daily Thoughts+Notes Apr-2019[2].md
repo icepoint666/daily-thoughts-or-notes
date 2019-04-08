@@ -175,4 +175,12 @@ In general, the scenes in ShanghaiTech Part A dataset are congested and noisy. E
 
 crowd counting的一个主要问题是数据少，标注难度大，而且如果当成person识别，一般往往不具有person的完全特征，而且样式多种多样，有些特别小识别不出来，解决办法一般都是无监督数据
 
-存在的无监督方法大多都是基于autoencoder
+存在的无监督方法大多都是基于`Auto encoder`
+
+现在的方法：对于highly diverse dense crowd images，当前无监督的方法不能学习足够有用的特征对于density regression任务
+
+为了提升从无监督label特征学习的能力，使用的方法：**winner-take-all (WTA) regularization for autoencoders**
+
+**WTA**
+
+
