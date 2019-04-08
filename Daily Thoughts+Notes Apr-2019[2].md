@@ -177,10 +177,72 @@ crowd counting的一个主要问题是数据少，标注难度大，而且如果
 
 存在的无监督方法大多都是基于`Auto encoder`
 
+**自编码器**
+
+![](__pics/auto_encoder.png)
+
 现在的方法：对于highly diverse dense crowd images，当前无监督的方法不能学习足够有用的特征对于density regression任务
 
-为了提升从无监督label特征学习的能力，使用的方法：**winner-take-all (WTA) regularization for autoencoders**
+为了提升从无监督label特征学习的能力，使用的方法：**Grid winner-take-all (GWTA) convolutinoal autoencoders**
 
 **WTA**
 
+WTA是指 winner-take-all，模拟了人脑的实际运作。
 
+在auto-encoder的训练过程中，并不是所有神经元都参与学习，而是在特定的iteration里，有一部分神经元并不选择更新权值，在神经元之间创造一个竞争。
+
+规则：有着很高的activation值的神经元就是 "winner"的神经元
+
+目前WTA模型只在cifar10, MNIST评估过，没有在很复杂的场景应用过。
+
+GWTA在空间上(spatially)将每个卷积的feature map分成了a grid of cells， WTA被应用在每个cell
+
+**优点**：因为群体counting有一个特性，就是图片上每个region关联性不强，所以这种GWTA分解成grid然后得到local winners也很有效，而且还能避免一些全局的noisy
+
+**几乎无监督**：99.9%的参数都是在无监督的情况下训练的，训练的只有crowd images没有任何标注
+
+Only the last two layers which take unsupervised representations as input are tuned with labeled data.最后两层标注的是density map
+
+**主要方法**
+
+![](__pics/GWTA_1.png)
+
+WTA不是应用在整个spatial map，只是应用在一个区域也就是GWTA
+
+这里GWTA独立应用在每个channel,每个feature map被分成矩形的cell,大小是预先定义的 h x w
+
+在前向传播的时候只有winner的神经元才可以将activation传播下去，其他神经元的激活值都被设置为0
+
+对于decoder的任务就是去重建这样的sparse activation map,因为这个信息非常稀疏，所以不仅会让encoder在相邻的filters得到最小重构损失，还会致使学习到很多input data里有用的特征
+
+网络结构如下：
+
+![](__pics/GWTA_2.png)
+
+采用GWTA的效果如下：
+
+![](__pics/GWTA_3.png)
+
+很好的一点就是GWTA避免了去重构所有的输入部分，强迫去突出特定需要的部分
+
+![](__pics/GWTA_4.png)
+
+这里使用L2 loss表示对于微小的误差惩罚较小，对于较大的误差惩罚较大，L2 reconstruction loss因为GWTA的稀疏性，其实很难收敛，训练到不再减小为止即可。
+
+对于最后两层density map的监督：
+
+这里只使用两层3 x 3 conv，进行回归，监督训练也只训练在这两层，其中density map的生成是用`sigma=8`的gaussian filter，回归损失函数：
+
+![](__pics/GWTA_5.png)
+
+**实验结果**
+
+Metrics:
+
+![](__pics/GWTA_6.png)
+
+结果：
+
+![](__pics/GWTA_7.png)
+
+![](__pics/GWTA_8.png)
