@@ -8,7 +8,7 @@
 就是指那种不用调参就可以得到不错效果的实现
 
 ### 1. 来源于pix2pixHD的方法
-**采用`multi-scale`的`Discriminator`以及`coarse-to-fine`的`Generator`
+**采用`multi-scale`的`Discriminator`以及`coarse-to-fine`的`Generator`**
 
 所谓multi-scale的Discriminator是指多个D，分别判别不同分辨率的真假图像。比如采用3个scale的判别器，分别判别256x256，128x128，64x64分辨率的图像。
 
