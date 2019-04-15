@@ -239,10 +239,37 @@ WTA不是应用在整个spatial map，只是应用在一个区域也就是GWTA
 
 Metrics:
 
-![](__pics/GWTA_6.png)
+![](__pics/GTWA_6.png)
 
 结果：
 
-![](__pics/GWTA_7.png)
+![](__pics/GTWA_7.png)
 
-![](__pics/GWTA_8.png)
+![](__pics/GTWA_8.png)
+
+### 论文4：Point in, Box out: Beyond Counting Persons in Crowds (CVPR2019 Oral)
+> 本文主要解决方式使用point supervision，同时检测human heads的大小与位置，并在人群里技术。
+
+> propose a point-supervised deep detection network (PSDDN) for crowd counting which takes in cheap point-level annotations on person heads at training stage and produces out elaborate bounding box information on person heads at test stage
+
+**关于scale的一些观察结论**：
+
+即使真实的head size没有被标注，但是这篇文章的intuition就是建立在这样的观察之上：
+- 1. When two persons are close enough, their head distance indeed reflects their head size.
+- 2. Due to the perspective distortion, person heads in the same horizontal line usually have similar size and gradually become smaller in the remote (top) area of the image.(同一水平线基本头大小差不多，而且越往上的头越小）
+
+**对于`crowd counting`方向基本解决方式：**
+`Detection-based methods`
+需要expensive bounding box annotations，标注代价过高
+
+之前工作有一些关注于small object detection，以及一些face crowds的检测问题，但是跟这个crowd counting比，还是不够dense.
+
+`Regression-based methods`  
+
+根据density map的ground truth进行回归
+
+#### point supervision
+一般多用于pose estimation领域
+
+但是也被用于目标检测，语义分割，用来减少标注时间
+
