@@ -259,7 +259,9 @@ Metrics:
 - 2. Due to the perspective distortion, person heads in the same horizontal line usually have similar size and gradually become smaller in the remote (top) area of the image.(同一水平线基本头大小差不多，而且越往上的头越小）
 
 **对于`crowd counting`方向基本解决方式：**
+
 `Detection-based methods`
+
 需要expensive bounding box annotations，标注代价过高
 
 之前工作有一些关注于small object detection，以及一些face crowds的检测问题，但是跟这个crowd counting比，还是不够dense.
