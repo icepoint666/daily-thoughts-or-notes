@@ -56,7 +56,7 @@ Kaiming在Focal Loss for Dense Object Detection 提出来的损失函数
 
 解决这个问题的一个方法就是“软化”这个 loss，**“软化”就是把一些本来不可导的函数用一些可导函数来近似，数学角度应该叫“光滑化”**。
 
-![](__pics/focal_loss_3.png)
+![](__pics/focal_loss_7.png)
 
 要想“软化”这个 loss，就得“软化” θ(x)，而软化它就再容易不过，它就是 sigmoid 函数。我们有：
 
