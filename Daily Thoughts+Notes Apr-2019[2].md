@@ -275,3 +275,4 @@ Metrics:
 
 但是也被用于目标检测，语义分割，用来减少标注时间
 
+具体笔记详见[Daily Thoughts+Notes Apr-2019[4]](https://github.com/icepoint666/daily-thoughts-or-notes/blob/master/Daily%20Thoughts%2BNotes%20Apr-2019%5B4%5D.md)
