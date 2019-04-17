@@ -84,7 +84,8 @@ First fold I1 with images containing mostly medium-sized bounding boxes， I1最
 
 这篇文章只设置了3折（3 fold）
 
-### 2. CSP（Center and Scale Prediction）检测器 (CVPR2019 | 行人检测)
+### 2. CSP（Center and Scale Prediction）检测器 (CVPR2019 | 行人检测-Anchor Free)
+High-level Semantic Feature Detection: A New Perspective for Pedestrian Detection
 
 > 提出了一种无需密集滑窗或铺设锚点框、全卷积式预测目标中心点和尺度大小的行人检测方法，为目标检测提供了一个新的视角。
 
