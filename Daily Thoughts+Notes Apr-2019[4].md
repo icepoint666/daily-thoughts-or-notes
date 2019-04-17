@@ -10,6 +10,79 @@
 
 > 本文主要解决方式使用point supervision，同时检测human heads的大小与位置，并在人群里技术。
 
+#### 网络模型
+
+![](__pics/point_supervision_1.png)
+
+训练图片crop出来一个500x500，经过Resnet101的四个block
+- 经过`Res B1`降采样为250x250，64channels
+- 经过`Res B2`降采样为125x125，256channels
+- 经过`Res B3`降采样为63x63，512channels
+- 经过`Res B4`降采样为32x32，1024channels
+
+对于`Res B3`与`Res B4`经过生成`1 x 1 x 25 x (1 + 4)`通道的卷积核，得到125个通道
+
+这个表示为了得到25个候选anchor，1 + 4，1个表示预测score，4个表示bounding box的x,y,h,w
+
+这里最终得到`pred map 1`,`pred map 2`，将`pred map 2`上采样两倍，然后两者相加，得到`final map`
+
+最终得到的预测区域就是25个anchor中score最高的那个bounding box。
+
+#### pseudo GT的生成
+
+对于每个点，表示群体的个体，采用最近邻找到最近的点，然后连接这两个点的中点，作为伪GT bounding box边界上的一个点，从而生成GT，之后可以继续更新。
+
+#### 损失函数
+
+**classification loss**
+
+与fast rcnn的分类loss是一样的计算方法，其中关于正负样本的选择，使用了相同的online hard mining strategy
+
+**locally-constrained regression loss**
+
+前面阶段得到的anchor bounding box a = (ax, ay, aw, ah)，与之前的伪GT g = (gx, gy, gw, gh).
+
+学习一个transformation，作为训练过程中优化的参数
+
+![](__pics/point_supervision_2.png)
+
+对于pseudo ground truth， 其中gx, gy是精确的，gw, gh是不精确的，所以xy的loss与wh的loss分开来统计。
+
+![](__pics/point_supervision_3.png)
+
+对于width与height的loss 函数，依赖一些我们观察的常识：
+
+- 1. 同一水平线的群体上的个体，一般size是差不多的。
+- 2. 对于竖直上的，越靠上的个体的size越小，越靠下的size会越大。
+- 3. 在一个图片上较小的局部的region里，往往size是差不多的。
+
+依据上面的观察论，做法如下：
+
+![](__pics/point_supervision_4.png)
+
+总loss函数：
+
+![](__pics/point_supervision_5.png)
+
+#### Curriculum learning
+
+因为对于伪GT，如果特别稀疏的场景，或者特别稠密的场景，这样的假设就是不准确的，所以在训练过程中提出一种策略：
+
+在crowd counting数据集中，非常大的bounding box与非常小的bounding box都是很小第一部分，许多box相对来说都是中间尺寸的，算是比较容易计算的。
+
+我们计算出来一个评分用来衡量box size的极端（难算）程度，我们计算一张图片中每一个个体点最近邻点的距离，计算出来均值与方差，根据高斯函数来进行评分
+
+这样如果某个点的最近邻距离特别小或者特别大，那么高斯评分就会低，因为离均值远，根据下面的公式就会计算出来，偏离的多，图片的训练困难度就较高：
+
+![](__pics/point_supervision_6.png)
+
+If an image contains mostly medium-sized bounding boxes, its difficulty will be small; otherwise, big.
+
+根据image difficulty的定义，从而split数据分成很多份I1, I2, I3 ... In
+
+First fold I1 with images containing mostly medium-sized bounding boxes， I1最好训练，所以先在I1上训练模型，之后再在I1与I2的交集上训练，之后再在I1,I2,I3的交集上训练，依次类推。
+
+这篇文章只设置了3折（3 fold）
 
 ### 2. CSP（Center and Scale Prediction）检测器 (CVPR2019 | 行人检测)
 
