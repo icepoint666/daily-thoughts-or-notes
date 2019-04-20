@@ -6,6 +6,34 @@
 **Nothing But the Intuition!** ♐
 
 ## 关于point supervision相关的detection文章
+### 0. mAP理解（附加知识）
+
+mAP是目标检测领域的一个常用指标，但也很容易忘记，所以怎样印象深刻的理解记住是关键。
+
+**主要依赖于两个值，一个是差准系数，准确性，另一个是查全系数，全面性。**
+
+**一句话概括AP：AP表示Recall从0~1的平均精度值。** 比如说Recall=0.1时，Precision=y1；Recall=0.2时，Precision=y2；...... ；Recall=1.0时，Precision=yn。那么可以以Recall为横轴，Precision为纵轴画一条曲线，曲线下的面积就是AP。
+
+![](__pics/mAP_1.png)
+
+**一句话概括mAP：mAP表示多个物体类别上的平均AP。** 注意，mAP有两次平均，一次在Recall取不同值时平均，一次在类别上平均。
+
+### precision
+
+positive 的samples中，真的是正(T) samples 的个数，也可被称为：查准系数。
+
+![](__pics/mAP_2.jpg)
+
+### recall
+
+recall召回率：就是我查出来的正 samples 与总的正 samples 数量的比值，所以也被称为查全系数
+
+![](__pics/mAP_3.jpg)
+
+https://zhuanlan.zhihu.com/p/60834912
+
+https://www.zhihu.com/question/65328356/answer/467225482
+
 ### 1. Point in, Box out: Beyond Counting Persons in Crowds (CVPR2019 Oral | 群体计数)
 
 > 本文主要解决方式使用point supervision，同时检测human heads的大小与位置，并在人群里技术。
@@ -219,6 +247,6 @@ Kaiming在Focal Loss for Dense Object Detection 提出来的损失函数
 
 **比如负样本远比正样本多的话，模型肯定会倾向于数目多的负类（可以想象全部样本都判为负类），这时候，负类的 ŷ γ 或 σ(Kx) 都很小，而正类的 (1−ŷ )γ 或 σ(−Kx) 就很大，这时候模型就会开始集中精力关注正样本。**
 
-
 ![](__pics/focal_loss_6.png)
+
 https://blog.csdn.net/c9Yv2cf9I06K2A9E/article/details/78920998
