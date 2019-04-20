@@ -8,7 +8,7 @@
 ## 关于point supervision相关的detection文章
 ### 0. mAP理解（附加知识）
 
-mAP是目标检测领域的一个常用指标，但也很容易忘记，所以怎样印象深刻的理解记住是关键。
+mAP是目标检测，图像分类领域的一个常用指标，但也很容易忘记，所以怎样印象深刻的理解记住是关键。
 
 **主要依赖于两个值，一个是查准系数，准确性，另一个是查全系数，全面性。**
 
@@ -18,17 +18,21 @@ mAP是目标检测领域的一个常用指标，但也很容易忘记，所以�
 
 **一句话概括mAP：mAP表示多个物体类别上的平均AP。** 注意，mAP有两次平均，一次在Recall取不同值时平均，一次在类别上平均。
 
-### precision
+### 二分类中precision
 
 positive 的samples中，真的是正(T) samples 的个数，也可被称为：查准系数。
 
 ![](__pics/mAP_2.jpg)
 
-### recall
+### 二分类中recall
 
 recall召回率：就是我查出来的正 samples 与总的正 samples 数量的比值，所以也被称为查全系数
 
 ![](__pics/mAP_3.jpg)
+
+### 目标检测中的 precision， recall 与 IoU
+
+![](__pics/mAP_4.jpg)
 
 https://zhuanlan.zhihu.com/p/60834912
 
