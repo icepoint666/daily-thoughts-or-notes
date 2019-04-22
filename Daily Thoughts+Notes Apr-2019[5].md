@@ -8,7 +8,7 @@
 ## 关于 Disentangled image generation 论文汇总（将输入信息分解去纠缠的图像生成）
 ### 1. InfoGAN: Interpretable Representation Learning byInformation Maximizing Generative Adversarial Nets (NIPS 2016)
 
-InfoGAN能够以一种无监督的方式去学习disentangled representations
+InfoGAN能够以一种无监督的方式去学习disentangled representations,主要是通过encoder结构以及互信息的loss
 
 **motivation:**
 
