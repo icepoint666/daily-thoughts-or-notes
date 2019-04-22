@@ -49,3 +49,10 @@ latent code可以自己选择维度分布，例如：c_i ∼ Unif(−1, 1) with 
 （这里Q相当于encoder模型，D是discriminator，G是generator）
 
 https://www.jianshu.com/p/1b84adec15e7
+
+### 2. Disentangled Person Image Generation (CVPR 2018）
+
+本身目的合成一个person image
+
+将一个person image看成是由 `background features`, `foreground featrues`, `pose faetures`组合而成
+
