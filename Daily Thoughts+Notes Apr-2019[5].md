@@ -54,5 +54,20 @@ https://www.jianshu.com/p/1b84adec15e7
 
 本身目的合成一个person image
 
-将一个person image看成是由 `background features`, `foreground featrues`, `pose faetures`组合而成
+将一个person image看成是由 `background features`, `foreground featrues`, `pose features`组合而成
 
+**本文的目标是将person images中的外观因素(Appearance factors)与结构因素(structure factors)去纠缠**
+
+类似于将群体个体与背景去纠缠的任务
+
+**任务描述**
+
+输入一张condition image，另一张目标pose, 然后生成目标图像
+
+![](__pics/person_generator_1.jpg)
+
+分为两个阶段
+- stage1: multi-branched reconstruction architencture，将几部分去纠缠，采用一种分治策略，将去纠缠的部分encode到embedding vector中，然后concat到一起，之后把输入图像恢复，而且按照encode进去的feature恢复
+- stage2: 将这些feature看作是real的，去对抗性的学习一个mapping functions，能够从 gaussian distribution 映射到 embedding feature distribution.
+
+![](__pics/person_generator_2.jpg)
