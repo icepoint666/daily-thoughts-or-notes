@@ -64,17 +64,17 @@ https://www.jianshu.com/p/1b84adec15e7
 
 输入一张condition image，另一张目标pose, 然后生成目标图像
 
-![](__pics/person_generator_1.jpg)
+![](__pics/person_generator_1.png)
 
 分为两个阶段
 - stage1: multi-branched reconstruction architencture，将几部分去纠缠，采用一种分治策略，将去纠缠的部分encode到embedding vector中，然后concat到一起，之后把输入图像恢复，而且按照encode进去的feature恢复
 - stage2: 将这些feature看作是real的，去对抗性的学习一个mapping functions，能够从 gaussian distribution 映射到 embedding feature distribution.
 
-![](__pics/person_generator_2.jpg)
+![](__pics/person_generator_2.png)
 
 **Stage-I : Disentangled image reconstruction**
 
-![](__pics/person_generator_3.jpg)
+![](__pics/person_generator_3.png)
 
 先通过之前文章的方法Pose guided person image generation，去生成 `pose heatmap` 以及与pose有关的 `mask`.
 
