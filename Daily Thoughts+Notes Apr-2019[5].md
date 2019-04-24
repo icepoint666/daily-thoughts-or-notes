@@ -108,7 +108,7 @@ https://www.jianshu.com/p/1b84adec15e7
 
 因为pose需要一个embedding用在第二阶段，所以pose branch还有一个encoder + decoder结构
 
-![](__pics/person_generator_4.png)
+![](__pics/person_generater_4.png)
 
 这里使用fully-connected networks（全连接）去重建pose information，所以我们能够decode embedded pose feature to obtain the heatmaps
 
@@ -120,7 +120,7 @@ The pose information can be represented by a 54-dim vector (36-dim keypoint coor
 
 **Stage-II: Embedding feature mapping**
 
-![](__pics/person_generator_5.png)
+![](__pics/person_generater_5.png)
 
 图像可以被represented成为一个low-dimensional，continuous的feature embedding space
 
@@ -152,15 +152,15 @@ The pose information can be represented by a 54-dim vector (36-dim keypoint coor
 
 stage-I的架构：encoder, auto-decoder
 
-![](__pics/person_generator_7.png)
+![](__pics/person_generater_7.png)
 
-![](__pics/person_generator_8.png)
+![](__pics/person_generater_8.png)
 
 (里面的feature之间都是经过的convolutional residual blocks)
 
 stage-II的架构：mapping function
 
-![](__pics/person_generator_6.png)
+![](__pics/person_generater_6.png)
 
 **loss function**
 
@@ -168,15 +168,15 @@ stage-I, we use both `L1` and `adversarial` loss to optimize the image (i.e. for
 
 stage-I的`generator`与`discriminator`的loss:
 
-![](__pics/person_generator_9.png)
+![](__pics/person_generater_9.png)
 
 `pose reconstruction`的loss：
 
-![](__pics/person_generator_10.png)
+![](__pics/person_generater_10.png)
 
 使用WGAN loss去优化第二阶段的全连接mapping的loss
 
-![](__pics/person_generator_11.png)
+![](__pics/person_generater_11.png)
 
 **实现细节**
 
