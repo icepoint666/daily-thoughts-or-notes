@@ -71,3 +71,12 @@ https://www.jianshu.com/p/1b84adec15e7
 - stage2: 将这些feature看作是real的，去对抗性的学习一个mapping functions，能够从 gaussian distribution 映射到 embedding feature distribution.
 
 ![](__pics/person_generator_2.jpg)
+
+**Stage-I : Disentangled image reconstruction**
+
+![](__pics/person_generator_3.jpg)
+
+先通过之前文章的方法Pose guided person image generation，去生成 `pose heatmap` 以及与pose有关的 `mask`.
+
+
+
