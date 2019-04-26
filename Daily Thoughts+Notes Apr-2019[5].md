@@ -199,3 +199,107 @@ The pose models are trained with a mini-batch of `size 64 for ∼30k` iterations
 and with a mini-batch of `size 32 for ∼60k` iterations at `stage-II`.
 
 On both datasets, we use the Adam optimizer with weights β1 = 0.5 and β2 = 0.999. The initial learning rate is set to 2e-5. For adversarial training, we optimize the discriminator and generator alternatively.
+
+### 3. Image-to-image translation for cross-domaindisentanglement (NIPS 2018）
+
+进行domain到另一个domain的转换，
+
+partition the representation into three parts
+
+![](__pics/cross_domain_1.png)
+
+将表示两个域的信息分为三个部分，一个表示shared信息，另外两个表示各自域的信息
+
+**Cross-domain disentanglement for image-to-image translation的优点：**
+
+- 1. Sample diversity: 可以生成一个关于 images conditioned on the input image的分布，然而许多image-to-image translation的架构只能生成deterministic的结果
+- 2. Cross domain retrieval: 基于representation可以检索相似图像
+- 3. Domain-specific image transfer：是基于domain而不是单个图像的
+- 4. Domain-specific interpolation: 是基于domain的，根据representation可以进行插值
+
+**主要方法**
+
+主要用了两个模块
+
+`image translator`
+
+![](__pics/cross_domain_2.png)
+
+`cross domain autodecoders`
+
+![](__pics/cross_domain_3.png)
+
+**loss函数**
+
+![](__pics/cross_domain_4.png)
+
+总共算起来有五部分的loss:
+
+1. shared representation的L1 loss
+
+![](__pics/cross_domain_5.png)
+
+用来监督，保证domain X与domain Y生成的shared representation相似
+
+问题就是这样的设置会导致representation向量的绝对值趋向于0，从而减小l1 loss，但是达不到理想效果
+
+![](__pics/cross_domain_6.png)
+
+解决办法：
+- 1. 在得到shared representation输出的encoder上加一个噪声，可以有效缓解这个现象。
+- 2. 另一种办法，通过正则项，限制Sx,Sy的绝对值在1附近，不过在这里的实验效果不如第一种的效果好
+
+2. reconstruction loss的L1 loss
+
+保证之前encoder分离出来的shared presentation,decoder合成图片后，在经过encoder得到的shared representation还是它自己。
+
+![](__pics/cross_domain_7.png)
+
+3. Ex的GAN loss
+
+因为在decoder的时候输入的是shared representation + noise, 这里的noise是代替exclusive representation的，所以exclusive representation应该尽量与noise有近似的分布
+
+这个GAN是区分`Ex的output`与`noise的output`的，使它们尽量是真实的分布
+
+![](__pics/cross_domain_8.png)
+
+4. 生成结果的GAN loss
+
+保证由share representation重构出来的输出符合真实的数据分布
+
+5. Cross-domain autoencoders中的loss
+
+![](__pics/cross_domain_3.png)
+
+这里的loss保证在使用另一个域的shared representation的时候，进行重构得到的x与原图是相等的，所以这个loss保证经过antoencoder生成的结果与原结果表示相同的概念。
+
+![](__pics/cross_domain_9.png)
+
+**一些重要理解点**
+
+1. exclusive representation的训练策略：**Gradinet Reversal Layer (GRL) **
+
+因为我们要保证exclusive representation Ex 不包含domain Y的信息，所以不可能去使用Ex 生成Y，为了强化这种行为，我们先尝试用Ex生成Y，然后反向传播计算loss的时候，将loss取反，这里取反的位置就是图中橙色截线的地方，也就是说正向传播是identity, 反向传播取反 （GRL来实现）
+
+![](__pics/cross_domain_2.png)
+
+2. Architectural bottleneck 
+
+对于许多image-to-image translation的任务， 输入与输出的大部分信息都是相似的，所有信息都要经过一个bottleneck, 算是一个latent representation，但是为了防止一些高分辨率的细节损失，所以使用skip-connection，例如U-net.
+
+但是如果disentangling the latent representation， skip-connection就会造成问题：
+
+更高分辨率的特征包括shared与exclusive的信息来自于encoder的，但是去纠缠要做到decoder的信息只包括shared或者exclusive其中一部分的。
+
+所以这里不使用skip-connection
+
+引入architectural bottleneck通过增加latent representation的大小
+
+we only increase the spatial dimensions of the shared part of the representation, from 1 × 1 × 512 to 8 × 8 × 512. 
+
+We found out that in the considered domains, the exclusive part can be successfully modeled by a 1×1×8 vector, which is later tiled and concatenated with the shared part before decoding
+
+对于encoder需要将两个representation分开，这里是并行实现：
+
+We implement the different size of the latent representation by parallel last layers in the encoder, `convolutional` for the
+`shared part` and `fully connected` for the `exclusive part`.
