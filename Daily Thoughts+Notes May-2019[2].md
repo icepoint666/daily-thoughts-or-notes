@@ -7,7 +7,7 @@
 
 ### 1. 知识蒸馏（Knowledge Distillation）
 
-知识蒸馏是一种模型压缩常见方法，用于模型压缩指的是在teacher-student框架中，将复杂、学习能力强的网络学到的特征表示“知识”蒸馏出来，传递给参数量小、学习能力弱的网络。蒸馏可以提供student在one-shot label上学不到的soft label信息，这些里面包含了类别间信息，以及student小网络学不到而teacher网络可以学到的特征表示‘知识’，所以一般可以提高student网络的精度。
+知识蒸馏是一种**模型压缩常见方法**，用于模型压缩指的是在teacher-student框架中，将复杂、学习能力强的网络学到的特征表示“知识”蒸馏出来，传递给参数量小、学习能力弱的网络。蒸馏可以提供student在one-shot label上学不到的soft label信息，这些里面包含了类别间信息，以及student小网络学不到而teacher网络可以学到的特征表示‘知识’，所以一般可以提高student网络的精度。
  
 **Attention Transfer** 
 
