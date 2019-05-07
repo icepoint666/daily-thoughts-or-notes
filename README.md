@@ -24,6 +24,7 @@ pix2pix (CVPR2017) | 2019 - February[4] - 1 |
 patchGAN | 2019 - February[4] - 3, 6 | 
 GAN中的L1 loss | 2019 - February[4] - 2 | 
 L1 loss 与 L2 loss区别 | 2019 - February[4] - 4 | 
+ | 2019 - March[3] - 8 | 
 cGAN中加z这样的随机性因子影响 | 2019 - February[4] - 5 | 
 partial convolution | 2019 - March[1] - 3 |
 gated convolution | 2019 - March[1] - 3 |
@@ -34,12 +35,19 @@ GAN Dissection (ICLR2019) | 2019 - March[3] - 2 |
 StyleGAN | 2019 - March[4] - 1 ~ 6 |
 GAN引入噪声 | 2019 - March[4] - 4， 5 |
 Disentanglement理论 | 2019 - March[4] - 6 |
+cGAN的mode collapse问题 | 2019 - March[6] - 1 |
+GAN创造了新的信息吗 | 2019 - March[6] - 2 |
 
 **Text-to-image**
 
 主题 | 索引 | 备注   
 -|-|-
 ObjGAN (CVPR2019) | 2019 - March[3] - 1 | 
+
+**Image-to-image**
+pix2pix (CVPR2017) | 2019 - February[4] - 1 |  
+SPADE (CVPR2019) | 2019 - March[7] - 1 ~ 7 |
+Image-to-image Translation）生成高质量图像策略 | 2019 - April[1] - 1 |
 
 **Image Inpainting**
 
@@ -65,6 +73,7 @@ Deformable Conv v1 | 2019 - February[1] - 6 |
 Deformable Conv v2 | 2019 - February[1] - 7 |
 反卷积的两种理解方式 | 2019 - March[2] - 1 |
 DSConv (Depthwise Separable Convolution) | 2019 - March[5] - 2 |
+Spatial CNN | 2019 - April[1] - 2 |
 
 **目标检测**
 
@@ -88,6 +97,8 @@ Cosine Normalization | 2019 - February[2] - 14 |
 Batch Normalization 与 Instance Normalization对比 | 2019 - February[2] - 16 |
 Local Response Normalization (LRN) | 2019 - March[2] - 2 |
 Local Response Normalization (LRN) 变体 | 2019 - March[1] - 9 |
+Normalization层总结与分类 | 2019 - March[7] - 2 |
+sychronized batch normalization | 2019 - March[7] - 5 |
 
 **Attention机制**
 
@@ -115,3 +126,4 @@ Frechet inception distance(FID) | 2019 - March[2] - 4 |
 FlowNet生成光流图 | 2019 - February[3] - 7 |
 ColorNet数据增广新思路 | 2019 - February[3] - 4 |
 权值初始化 | 2019 - March[1] - 8 |
+Adam回顾 | 2019 - March[6] - 3 |
