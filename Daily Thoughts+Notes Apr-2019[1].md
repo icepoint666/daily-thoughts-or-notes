@@ -22,13 +22,7 @@ Coarse2fine的Generator是指先训练一个低分辨率的网络，训好了再
 
 先训小分辨率，再逐渐增加网络层数以增大分辨率，这个跟coarse2fine有点像。
 
-### 2. 关于生成样本多样性
-
-### 3. checkerboard现象
-
-https://zhuanlan.zhihu.com/p/32294630
-
-### 4. Spatial CNN
+### 2. Spatial CNN
 Spatial CNN就是那种CNN通过特征的设计架构传递空间信息。
 
 SCNN更有效的学习空间关系，能平滑的找出连续的有强先验的结构目标。
