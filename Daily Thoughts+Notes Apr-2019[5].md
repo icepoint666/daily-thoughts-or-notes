@@ -200,7 +200,7 @@ and with a mini-batch of `size 32 for ∼60k` iterations at `stage-II`.
 
 On both datasets, we use the Adam optimizer with weights β1 = 0.5 and β2 = 0.999. The initial learning rate is set to 2e-5. For adversarial training, we optimize the discriminator and generator alternatively.
 
-### 3. Image-to-image translation for cross-domaindisentanglement (NIPS 2018）
+### 3. Image-to-image translation for cross-domain disentanglement (NIPS 2018）
 
 进行domain到另一个domain的转换，
 
