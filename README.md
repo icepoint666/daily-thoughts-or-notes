@@ -23,8 +23,7 @@ Spectral Normalization | 2019 - February[2] - 17 |
 pix2pix (CVPR2017) | 2019 - February[4] - 1 |  
 patchGAN | 2019 - February[4] - 3, 6 | 
 GAN中的L1 loss | 2019 - February[4] - 2 | 
-L1 loss 与 L2 loss区别 | 2019 - February[4] - 4 | 
- | 2019 - March[3] - 8 | 
+L1 loss 与 L2 loss区别 | 2019 - February[4] - 4 /  March[3] - 8 | 
 cGAN中加z这样的随机性因子影响 | 2019 - February[4] - 5 | 
 partial convolution | 2019 - March[1] - 3 |
 gated convolution | 2019 - March[1] - 3 |
@@ -37,6 +36,13 @@ GAN引入噪声 | 2019 - March[4] - 4， 5 |
 Disentanglement理论 | 2019 - March[4] - 6 |
 cGAN的mode collapse问题 | 2019 - March[6] - 1 |
 GAN创造了新的信息吗 | 2019 - March[6] - 2 |
+InfoGAN (NIPS 2016) | 2019 - April[5] - 1 | 互信息
+Disentangled Person Image Generation (CVPR 2018）| 2019 - April[5] - 2 | 去纠缠合成
+几种GAN loss简介 | 2019 - April[6] - 3 |
+学习率对GAN的影响 | 2019 - April[6] - 1 |
+上采样策略对GAN的影响 | 2019 - April[6] - 2 |
+GAN的checkerboard效应 | 2019 - May[1] - 1 |
+GAN的模型架构一览 | 2019 - May[1] - 3 |
 
 **Text-to-image**
 
@@ -45,9 +51,13 @@ GAN创造了新的信息吗 | 2019 - March[6] - 2 |
 ObjGAN (CVPR2019) | 2019 - March[3] - 1 | 
 
 **Image-to-image**
+
+主题 | 索引 | 备注   
+-|-|-
 pix2pix (CVPR2017) | 2019 - February[4] - 1 |  
 SPADE (CVPR2019) | 2019 - March[7] - 1 ~ 7 |
-Image-to-image Translation）生成高质量图像策略 | 2019 - April[1] - 1 |
+Image-to-image Translation 生成高质量图像策略 | 2019 - April[1] - 1 |
+Image-to-image translation for cross-domain disentanglement (NIPS 2018）| 2019 - April[5] - 3 |
 
 **Image Inpainting**
 
@@ -73,7 +83,11 @@ Deformable Conv v1 | 2019 - February[1] - 6 |
 Deformable Conv v2 | 2019 - February[1] - 7 |
 反卷积的两种理解方式 | 2019 - March[2] - 1 |
 DSConv (Depthwise Separable Convolution) | 2019 - March[5] - 2 |
+Xception / ResNeXt | 2019 - March[5] - 2 |
 Spatial CNN | 2019 - April[1] - 2 |
+Spatial FCN | 2019 - April[2] - 1 |
+sub-pixel convolution | 2019 - May[1] - 2 | 用作上采样，超分
+1 x 1 conv 理解 | 2019 - May[2] - 2 |
 
 **目标检测**
 
@@ -84,6 +98,7 @@ RPN网络 | 2019 - February[1] - 4 |
 RoI pooling层 | 2019 - February[1] - 5 |
 ROI pooling 与 ROI align | 2019 - March[5] - 1 |
 guided anchoring （CVPR2019）| 2019 - March[5] - 3 |
+CSP（Center and Scale Prediction）（CVPR2019）| 2019 - April[4] - 2 | point supervision
 
 **Normalization**
 
@@ -107,6 +122,14 @@ sychronized batch normalization | 2019 - March[7] - 5 |
 RA-CNN (CVPR2017) | 2019 - February[3] - 1 |
 Multiple Granularity Descriptors for Fine-grained Categorization | 2019 - February[3] - 2 |
 
+**Crowd Counting**
+主题 | 索引 | 备注   
+-|-|-
+Learning from Synthetic Data for Crowd Counting (CVPR2019) | 2019 - April[3] - 1 |
+ADCrowdNet (CVPR2019) | 2019 - April[3] - 2 |
+Almost Unsupervised Learning for Dense Crowd Counting (AAAI2019) | 2019 - April[3] - 3 |
+Point in, Box out: Beyond Counting Persons in Crowds (CVPR2019) | 2019 - April[3] - 4 / April[4] - 1| point supervision
+
 **评价指标**
 
 主题 | 索引 | 备注   
@@ -117,6 +140,7 @@ MS-SSIM | 2019 - February[3] - 5 |
 Sliced Wasserstein distance （SWD）| 2019 - March[1] - 10 |
 Inception Score | 2019 - March[2] - 4 |
 Frechet inception distance(FID) | 2019 - March[2] - 4 |
+mAP | 2019 - April[4] - 0 |
 
 **其他**
 
@@ -127,3 +151,6 @@ FlowNet生成光流图 | 2019 - February[3] - 7 |
 ColorNet数据增广新思路 | 2019 - February[3] - 4 |
 权值初始化 | 2019 - March[1] - 8 |
 Adam回顾 | 2019 - March[6] - 3 |
+WTA(winner take all) | 2019 - April[3] - 3 |
+focal loss | 2019 - April[4] - 3 | 平衡样本
+知识蒸馏（Knowledge Distillation）| 2019 - May[2] - 1 | 压缩模型
