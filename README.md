@@ -25,6 +25,27 @@ patchGAN | 2019 - February[4] - 3, 6 |
 GAN中的L1 loss | 2019 - February[4] - 2 | 
 L1 loss 与 L2 loss区别 | 2019 - February[4] - 4 | 
 cGAN中加z这样的随机性因子影响 | 2019 - February[4] - 5 | 
+partial convolution | 2019 - March[1] - 3 |
+gated convolution | 2019 - March[1] - 3 |
+perceptual loss | 2019 - March[1] - 4 |
+PGGAN | 2019 - March[1] - 5 ~ 7 |
+Minibatch stddev 层 | 2019 - March[1] - 7 |
+GAN Dissection (ICLR2019) | 2019 - March[3] - 2 |
+StyleGAN | 2019 - March[4] - 1 ~ 6 |
+GAN引入噪声 | 2019 - March[4] - 4， 5 |
+Disentanglement理论 | 2019 - March[4] - 6 |
+
+**Text-to-image**
+
+主题 | 索引 | 备注   
+-|-|-
+ObjGAN (CVPR2019) | 2019 - March[3] - 1 | 
+
+**Image Inpainting**
+
+主题 | 索引 | 备注   
+-|-|-
+FE-SNGAN | 2019 - March[1] - 1 ~ 4 | 
 
 **网络架构**
 
@@ -42,6 +63,8 @@ Resnet目的 | 2019 - January[1] - 7 |
 最佳downsampling方案 | 2019 - January[1] - 13 |
 Deformable Conv v1 | 2019 - February[1] - 6 |
 Deformable Conv v2 | 2019 - February[1] - 7 |
+反卷积的两种理解方式 | 2019 - March[2] - 1 |
+DSConv (Depthwise Separable Convolution) | 2019 - March[5] - 2 |
 
 **目标检测**
 
@@ -50,6 +73,8 @@ Deformable Conv v2 | 2019 - February[1] - 7 |
 Faster-RCNN | 2019 - February[1] - 3 |  
 RPN网络 | 2019 - February[1] - 4 |
 RoI pooling层 | 2019 - February[1] - 5 |
+ROI pooling 与 ROI align | 2019 - March[5] - 1 |
+guided anchoring （CVPR2019）| 2019 - March[5] - 3 |
 
 **Normalization**
 
@@ -61,6 +86,8 @@ Layer Normalization | 2019 - February[2] - 12 |
 Weight Normalization | 2019 - February[2] - 13 |
 Cosine Normalization | 2019 - February[2] - 14 |
 Batch Normalization 与 Instance Normalization对比 | 2019 - February[2] - 16 |
+Local Response Normalization (LRN) | 2019 - March[2] - 2 |
+Local Response Normalization (LRN) 变体 | 2019 - March[1] - 9 |
 
 **Attention机制**
 
@@ -76,6 +103,9 @@ Multiple Granularity Descriptors for Fine-grained Categorization | 2019 - Februa
 PSNR | 2019 - February[3] - 5 |
 SSIM | 2019 - February[3] - 5 |
 MS-SSIM | 2019 - February[3] - 5 |
+Sliced Wasserstein distance （SWD）| 2019 - March[1] - 10 |
+Inception Score | 2019 - March[2] - 4 |
+Frechet inception distance(FID) | 2019 - March[2] - 4 |
 
 **其他**
 
@@ -84,3 +114,4 @@ MS-SSIM | 2019 - February[3] - 5 |
 调参过程中初始学习率的设置 | 2019 - February[1] - 1 |
 FlowNet生成光流图 | 2019 - February[3] - 7 |
 ColorNet数据增广新思路 | 2019 - February[3] - 4 |
+权值初始化 | 2019 - March[1] - 8 |
