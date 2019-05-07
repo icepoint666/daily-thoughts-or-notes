@@ -123,6 +123,7 @@ RA-CNN (CVPR2017) | 2019 - February[3] - 1 |
 Multiple Granularity Descriptors for Fine-grained Categorization | 2019 - February[3] - 2 |
 
 **Crowd Counting**
+
 主题 | 索引 | 备注   
 -|-|-
 Learning from Synthetic Data for Crowd Counting (CVPR2019) | 2019 - April[3] - 1 |
