@@ -34,7 +34,7 @@ GAN Dissection (ICLR2019) | 2019 - March[3] - 2 |
 StyleGAN | 2019 - March[4] - 1 ~ 6 |
 GAN引入噪声 | 2019 - March[4] - 4， 5 |
 Disentanglement理论 | 2019 - March[4] - 6 |
-cGAN的mode collapse问题 | 2019 - March[6] - 1 |
+cGAN的mode collapse问题 (CVPR2019) | 2019 - March[6] - 1 |
 GAN创造了新的信息吗 | 2019 - March[6] - 2 |
 InfoGAN (NIPS 2016) | 2019 - April[5] - 1 | 互信息
 Disentangled Person Image Generation (CVPR 2018）| 2019 - April[5] - 2 | 去纠缠合成
