@@ -155,3 +155,4 @@ Adam回顾 | 2019 - March[6] - 3 |
 WTA(winner take all) | 2019 - April[3] - 3 |
 focal loss | 2019 - April[4] - 3 | 平衡样本
 知识蒸馏（Knowledge Distillation）| 2019 - May[2] - 1 | 压缩模型
+深度学习多个loss收敛的决定要素 | 2019 - May[2] - 3 |
