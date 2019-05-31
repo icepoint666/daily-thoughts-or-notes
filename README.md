@@ -43,6 +43,7 @@ Disentangled Person Image Generation (CVPR 2018）| 2019 - April[5] - 2 | 去纠
 上采样策略对GAN的影响 | 2019 - April[6] - 2 |
 GAN的checkerboard效应 | 2019 - May[1] - 1 |
 GAN的模型架构一览 | 2019 - May[1] - 3 |
+GAN的loss实践经验 | 2019 - May[3] - 1 |
 
 **Text-to-image**
 
@@ -96,6 +97,7 @@ sub-pixel convolution | 2019 - May[1] - 2 | 用作上采样，超分
 Faster-RCNN | 2019 - February[1] - 3 |  
 RPN网络 | 2019 - February[1] - 4 |
 RoI pooling层 | 2019 - February[1] - 5 |
+SPP (Spatial Pyramid Pooling)层 | 2019 - May[3] - 3 |
 ROI pooling 与 ROI align | 2019 - March[5] - 1 |
 guided anchoring （CVPR2019）| 2019 - March[5] - 3 |
 CSP（Center and Scale Prediction）（CVPR2019）| 2019 - April[4] - 2 | point supervision
