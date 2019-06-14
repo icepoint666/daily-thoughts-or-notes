@@ -5,7 +5,7 @@
 
 **Nothing But the Intuition!** ♐
 
-### 1. 论文 Deep Exemplar-based Colorization 基于参考样例来上色
+### 1. 论文 Deep Exemplar-based Colorization (Siggraph 2018) 基于参考样例来上色
 
 **对于上色问题往往有一个问题就是，一般情况设计L1 loss因为会尝试去取一个中和的值，所以出来的颜色比较灰，暗淡**
 
