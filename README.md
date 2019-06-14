@@ -44,6 +44,7 @@ Disentangled Person Image Generation (CVPR 2018）| 2019 - April[5] - 2 | 去纠
 GAN的checkerboard效应 | 2019 - May[1] - 1 |
 GAN的模型架构一览 | 2019 - May[1] - 3 |
 GAN的loss实践经验 | 2019 - May[3] - 1 |
+将crop小个体图片插入全景图片中 | 2019 -June[1] - 2 |
 
 **Text-to-image**
 
@@ -159,3 +160,4 @@ focal loss | 2019 - April[4] - 3 | 平衡样本
 工程上对细小样本loss加权从而增加效果 | 2019 - May[3] - 2 |
 知识蒸馏（Knowledge Distillation）| 2019 - May[2] - 1 | 压缩模型
 深度学习多个loss收敛的决定要素 | 2019 - May[2] - 3 |
+参考上色问题 | 2019 - June[1] - 1 |
