@@ -160,4 +160,4 @@ focal loss | 2019 - April[4] - 3 | 平衡样本
 工程上对细小样本loss加权从而增加效果 | 2019 - May[3] - 2 |
 知识蒸馏（Knowledge Distillation）| 2019 - May[2] - 1 | 压缩模型
 深度学习多个loss收敛的决定要素 | 2019 - May[2] - 3 |
-参考上色问题 | 2019 - June[1] - 1 |
+参考上色问题 (siggraph 2018) | 2019 - June[1] - 1 |
