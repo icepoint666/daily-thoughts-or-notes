@@ -48,13 +48,37 @@
 
 **colorization子网络**
 
+在基于样例的自动着色问题中，直接计算`P_ab`和`T_ab`之间的损失函数是不正确的，因为`P_ab`应该由`R′_ab`来控制决定。因此，我们的目标函数需要由两个必要条件决定：首先，我们更喜欢在输出中应用可靠的参考图片的颜色，从而使其忠实于参考图片。 其次，即使没有可靠的参考图片的颜色，我们也鼓励着色结果是自然的。
+
 ![](__pics/colorize_4.png)
 
-输入是有13 channels，相似性map，每个方向各5个，因为vgg每层的feature
+输入是有`13 channels`，相似性map，每个方向各5个，对应vgg每层的feature
 
-有两个branch：
-- Chrominance branch： 网络学习去选择性的传播正确的reference color，依赖于how well T_L and R_L are matched?
+有两个branch:
 
+**Chrominance branch(色度分支)**: 网络学习去选择性的传播正确的reference color，依赖于how well T_L and R_L are matched.
+
+这两种分支都使用相同的网络结构C和权重θ，但是使用不同的损失函数。参数α用于指示两个分支之间的相对权重。
+
+![](__pics/colorize_5.png)
+
+![](__pics/colorize_6.png)
+
+![](__pics/colorize_7.png)
+
+![](__pics/colorize_8.png)
+
+使用smooth L1误差是为了避免在这些模糊的着色问题中获得一个均值的解。
+
+仅仅使用色度损失可以在R′ab有值得信赖的颜色时有用处，但是对于对照颜色不同的部分则没什么办法。为了使网络能够在即使没有一个合适的对照下也能获得视觉上可行的图片，我们添加了一个感知分支。
+
+**Perceptual branch(感知分支)**:
+
+![](__pics/colorize_9.png)
+
+![](__pics/colorize_10.png)
+
+![](__pics/colorize_11.png)
 
 ### 2. Inserting Videos into Videos (CVPR 2019)
 
