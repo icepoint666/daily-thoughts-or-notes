@@ -44,7 +44,7 @@ Disentangled Person Image Generation (CVPR 2018）| 2019 - April[5] - 2 | 去纠
 GAN的checkerboard效应 | 2019 - May[1] - 1 |
 GAN的模型架构一览 | 2019 - May[1] - 3 |
 GAN的loss实践经验 | 2019 - May[3] - 1 |
-将crop小个体图片插入全景图片中 | 2019 -June[1] - 2 |
+将crop小个体图片插入全景图片中 (CVPR2019) | 2019 -June[1] - 2 |
 
 **Text-to-image**
 
