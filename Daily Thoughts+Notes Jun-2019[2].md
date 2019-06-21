@@ -86,7 +86,7 @@ Each block consists of 6 consecutive blocks with a skip connection:
 - `LFN`-layer
 - `lrelu`-layer
 
-**LFN Local Feature Normalization Layer
+**LFN Local Feature Normalization Layer**
 
 ![](__pics/style_transfer_4.png)
 
