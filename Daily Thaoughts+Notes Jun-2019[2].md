@@ -37,7 +37,8 @@ the artist’s style
 
 - perceptual loss
 
-- fixpoint loss：让每个图片与经过风格化的图片 再经过style transfer的encoder，得到的style-specific encoding space得L2距离作为loss
+- fixpoint loss(FP loss)：让每个图片与经过风格化的图片 再经过style transfer的encoder，得到的style-specific encoding space得L2距离作为loss
+
 ![](__pics/style_transfer_1.png)
 
 **风格转换的至高境界：**
@@ -54,8 +55,42 @@ the artist’s style
 
 这里还需要提供一个内容信息c，使判别器对内容线索更加敏感
 
+**流程**
 
+![](__pics/style_transfer_2.png)
 
+阶段一：让`content transformation block`不参与训练，就是正常的风格转换，discriminator判断生成的图片是不是属于风格s
+
+`风格对抗loss` + `前面提到的FP loss` + `per pixel l1 loss`
+
+阶段二：让decoder与encoder不参与训练，只对content transformation block训练
+
+discriminator有两个，第一个判断风格的不参与训练，只让判断内容的参与训练
+
+**这篇文章核心亮点主要还是对style转换中，content的理解**
+
+**现在普遍很多任务开始使用多个判别器训练，而且多阶段不同模块单独训练**
+
+![](__pics/style_transfer_3.png)
+
+**关于content transformation block的结构**
+
+concatenation of 9 "residual block"s
+
+Each block consists of 6 consecutive blocks with a skip connection:
+
+- `conv`-layer
+- `LFN`-layer
+- `lrelu`-layer
+- `conv`-layer
+- `LFN`-layer
+- `lrelu`-layer
+
+**LFN Local Feature Normalization Layer
+
+![](__pics/style_transfer_4.png)
+
+局部区域，以小组channels内的normalization
 
 
 
