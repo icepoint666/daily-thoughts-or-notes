@@ -1,4 +1,4 @@
-# Daily Thought (2019.7.14 - 2019.7.24)
+# Daily Thought (2019.7.14 - 2019.7.31)
 **Do More Thinking!** ♈ 
 
 **Ask More Questions!** ♑
@@ -153,3 +153,43 @@ epoch:12 scene:3 error:34.262095801035564
 epoch:12 scene:4 error:19.86162854830424
 epoch:12 error:17.151234087840542 min_mae:17.151234087840542 min_epoch:12
 ```
+
+### 4. Multi-task任务中的问题
+Multi-task learning 核心的问题通常是可简单分为两类：
+- 1. How to share: 这里主要涉及到基于 multi-task learning 的网络设计。
+- 2. Share how much: 如何平衡多任务的相关性使得每个任务都能有比 single-task training 取得更好的结果。
+
+
+**网络设计和梯度平衡的关系**
+
+无论是网络设计还是平衡梯度传播，我们的目标永远是让网络更好的学习到 transferable, generalisable feature representation 以此来缓解 over-fitting。为了鼓励多任务里多分享各自的 training signal 来学泛化能力更好的 feature，之前绝大部分研究工作的重点在网络设计上。直到去年才有陆续一两篇文章开始讨论 multi-task learning 里的 gradient balancing 问题
+
+
+梯度统治: 
+
+Gradient Domination在 multi-task learning 里又可根据 training data 的类别再次分为两类：
+- one-to-many (single visual domain): 输入一个数据，输出多个标签。通常是基于 image-to-image 的 dense prediction。一个简单的例子，输入一张图片，输出 semantic segmentation + depth estimation。
+- many-to-many (multi visual domain)：输入多个数据，输入各自标签。比如如何同时训练好多个图片分类任务。由于不同任务之间会有较大的差异，平衡梯度的目标是为了减缓任务本身的由于 variance, scale, complexity 不同而导致的差异。
+
+在训练 multi-task 网络时候则会因为任务复杂度的差异出现一个现象，我把他称之为: Gradient Domination, 通常发生在 many-to-many 的任务训练中。因为图片分类可以因为图片类别和本身数据数量而出现巨大差异。而基于 single visual domain 的 multi-task learning 则不容易出现这个问题因为数据集是固定的。最极端的例子： MNIST + ImageNet 对于这种极端差异的多任务训练基本可以看成基于 MNIST initialisation 的网络对于 ImageNet 的 finetune。所以这种情况的建议就是：优先训练复杂度高的数据集，收敛之后再训练复杂度低的数据集。当然这种情况下，多任务学习也没有太大必要了。
+
+
+multi-task learning 中， tasks之间彼此的相容性对结果也会有一些影响。当两个任务矛盾的时候， 往往结果会比单任务还要差不少。
+
+Multi-task learning 还需要解决的是**Gradient domination的问题**。 
+
+这个问题**产生的原因是不同任务的loss的梯度相差过大， 导致梯度小的loss在训练过程中被梯度大的loss所带走**。  
+
+如果一开始就给不同的Loss进行加权， 让它们有相近的梯度， 是不是就能训练的好呢？   
+
+结果往往不是这样的。 不同的loss， 他们的梯度在训练过程中变化情况也是不一样的；而且不同的loss, 在梯度值相同的时候， 它们在task上的表现也是不同的。在训练开始的时候，虽然balance了， 但是随着训练过程的进行， 中间又发生gradient domination了。  
+
+**multi-task loss函数解决措施**
+
+所以要想解决这个问题， 还是要合适地对不同loss做合适的均衡。实践中应该要如何调整呢？ 
+
+其实很简单：假设我们有两个task, 用A和B表示。   
+
+假设网络设计足够好， 容量足够大， 而且两个任务本身具有相关性，能够训得足够好。如果A和B单独训练， 他们在收敛的时候的梯度大小分别记为 Grad_a, Grad_b， 那么我们只需要在两个任务一起训练的时候， 分别用各自梯度的倒数（1/Grad_a, 1/Grad_b）对两个任务做平衡， 然后统一乘一个scalar就可以了。(根据单任务的收敛时候的loss梯度去确定multi-task训练中不同任务的权重。)因为loss的梯度在训练中通常会变小（这里用通常是因为一般mean square error等loss是这样， 其他有的Loss并不是。）， 如果我们确定这个网络在multi-task训练的时候能够达到原来的效果， 我们就只需要把平衡点设在两个任务都足够好的时候。 这样网络在训练过程中， 就自然能够达到那个平衡点， 即使一开始的时候会有gradient domination出现。
+
+https://www.zhihu.com/question/268105631/answer/335246543
