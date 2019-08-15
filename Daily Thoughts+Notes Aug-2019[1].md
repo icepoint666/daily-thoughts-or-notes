@@ -22,3 +22,9 @@ While parametric methods do well on limited data distributions, they struggle to
 
 **一般尝试解决的办法就是增大模型size**
 
+### 2.Revisiting Perspective Information for Efficient Crowd Counting（CVPR2019）
+引入perspective map作为输入信息，引入perspective map GT的获得方式
+
+![](imgs/perspective.jpg)
+
+![](imgs/perspective-2.jpg)
