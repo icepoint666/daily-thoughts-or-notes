@@ -12,7 +12,7 @@
 
 ![](__pics/in-the-wild.png)
 
-深度学习GAN+包含参数生成模型的问题：不够泛化，多样性很差
+**提出：深度学习GAN+包含参数生成模型的问题：不够泛化，多样性很差**
 
 对于semantic map转换成image的问题，一般的GAN模型都是一个数据集一个模型，也就是cityscapes, coco...
 
