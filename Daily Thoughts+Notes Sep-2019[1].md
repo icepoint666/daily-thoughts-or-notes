@@ -53,3 +53,29 @@ https://zhuanlan.zhihu.com/p/42080665
 对于M,H,W使用残差网络，如果为了生成高分辨率的video要采用coarse-to-fine的网络结构
 
 使用多个GAN判别器可以有效解决GAN训练中的mode collapse问题
+
+### 3. Efficient Video Generation on Complex Datasets (https://arxiv.org/pdf/1907.06571v1.pdf)
+
+**video生成方向有一个贡献指标就是length-up**:
+
+e.g.:which produces high-quality samples at resolutions up to 256×256 and lengths up to 48 frames
+
+**未来video generation方向**：future video prediction is concerned with generation of continuing video given initial frames
+
+**评价指标**：
+- Inception Score(IS)
+- Fréchet Inception Distance (FID)
+- Fréchet Video Distance (FVD)
+
+这篇文章主要是针对从latent variable合成到一个整的动态video，没什么太多东西
+
+### 4. MoCoGAN: Decomposing Motion and Content for Video Generation（CVPR2018）
+
+也是从latent variable合成video
+
+把video signals分成content与motion
+- content就是video里面的object
+- motion就是dynamic
+
+### 5. Video Generation from Single Semantic Label Map (CVPR2019)
+
