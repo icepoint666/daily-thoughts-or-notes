@@ -1,4 +1,4 @@
-# Daily Thought (2019.9.1 - 2019.9.30)
+# Daily Thought (2019.9.1 - 2019.9.18)
 **Do More Thinking!** ♈ 
 
 **Ask More Questions!** ♑
