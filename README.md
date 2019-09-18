@@ -136,6 +136,14 @@ ADCrowdNet (CVPR2019) | 2019 - April[3] - 2 |
 Almost Unsupervised Learning for Dense Crowd Counting (AAAI2019) | 2019 - April[3] - 3 |
 Point in, Box out: Beyond Counting Persons in Crowds (CVPR2019) | 2019 - April[3] - 4 / April[4] - 1| point supervision
 
+**Flow Estimation**
+
+主题 | 索引 | 备注   
+-|-|-
+Flownet  | 略 (1504.06852v2) | 根据flow ground truth预测光流
+Flownet2 | 略 (1612.01925) | 多个flow网络复合 + warp操作/loss
+SPN-Flow | 略 (1611.00850) | 使用Spatial Pyramid Network + 引入End Point Error(EPE) loss
+
 **评价指标**
 
 主题 | 索引 | 备注   
