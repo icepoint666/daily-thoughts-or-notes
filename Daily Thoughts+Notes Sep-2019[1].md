@@ -77,5 +77,3 @@ e.g.:which produces high-quality samples at resolutions up to 256×256 and lengt
 - content就是video里面的object
 - motion就是dynamic
 
-### 5. Video Generation from Single Semantic Label Map (CVPR2019)
-
